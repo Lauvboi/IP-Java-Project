@@ -4,6 +4,15 @@
  * and open the template in the editor.
  */
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author akhil
@@ -16,6 +25,8 @@ public class GamesForm extends javax.swing.JFrame {
     public GamesForm() {
         initComponents();
     }
+    
+    private final boolean DEBUG = false;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,24 +38,22 @@ public class GamesForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        gamesTable = new javax.swing.JTable();
         backToMain = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        clearButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        gamesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Sr. No.", "Name", "Stock", "Price"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(gamesTable);
 
         backToMain.setText("Go Back To Main Screen");
         backToMain.addActionListener(new java.awt.event.ActionListener() {
@@ -54,20 +63,36 @@ public class GamesForm extends javax.swing.JFrame {
         });
 
         jButton2.setText("Load Games");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        clearButton.setText("Clear");
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(backToMain))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(clearButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(backToMain)
+                        .addGap(0, 23, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,7 +101,8 @@ public class GamesForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(backToMain))
+                    .addComponent(backToMain)
+                    .addComponent(clearButton))
                 .addContainerGap())
         );
 
@@ -87,6 +113,43 @@ public class GamesForm extends javax.swing.JFrame {
         new MainForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backToMainActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        DefaultTableModel gamesTabelModel = (DefaultTableModel) gamesTable.getModel();
+        try
+        {
+            Class.forName("java.sql.Driver");
+            String user = ""; // Insert UserName
+            String password = ""; // Insert PassWord
+            String URL = "jdbc:mysql://localhost:3306/ipproject";
+            Connection connection = DriverManager.getConnection(URL,user,password);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from games");
+            while (resultSet.next())
+            {
+                int srno = resultSet.getInt("srno");
+                String name = resultSet.getString("name");
+                int stock = resultSet.getInt("stock");
+                int price = resultSet.getInt("price");
+                gamesTabelModel.addRow(new Object[] {srno,name,stock,price});
+            }
+        }
+        catch (ClassNotFoundException | SQLException e)
+        {
+            if (DEBUG)
+                e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Please re-run the program");
+            System.exit(0);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        DefaultTableModel gamesTabelModel = (DefaultTableModel) gamesTable.getModel();      
+        while (gamesTabelModel.getRowCount() != 0)
+        {
+            gamesTabelModel.removeRow(0);
+        }
+    }//GEN-LAST:event_clearButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,8 +189,9 @@ public class GamesForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToMain;
+    private javax.swing.JButton clearButton;
+    private javax.swing.JTable gamesTable;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
