@@ -1,3 +1,5 @@
+package ipproject.java;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -28,6 +30,7 @@ public class MainForm extends javax.swing.JFrame {
 
         welcomeLabel = new javax.swing.JLabel();
         listAllGamesButton = new javax.swing.JButton();
+        inputButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,6 +44,13 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        inputButton.setText("Insert new entry");
+        inputButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -48,7 +58,10 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(listAllGamesButton)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(listAllGamesButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(inputButton))
                     .addComponent(welcomeLabel))
                 .addGap(23, 23, 23))
         );
@@ -58,7 +71,9 @@ public class MainForm extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(welcomeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
-                .addComponent(listAllGamesButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(listAllGamesButton)
+                    .addComponent(inputButton))
                 .addGap(34, 34, 34))
         );
 
@@ -69,6 +84,11 @@ public class MainForm extends javax.swing.JFrame {
         new GamesForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_listAllGamesButtonActionPerformed
+
+    private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
+        new AddNewStuff().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_inputButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -106,6 +126,7 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton inputButton;
     private javax.swing.JButton listAllGamesButton;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables

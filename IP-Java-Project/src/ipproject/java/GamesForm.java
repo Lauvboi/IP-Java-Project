@@ -1,3 +1,5 @@
+package ipproject.java;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,6 +14,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import ipproject.java.Utils;
 
 /**
  *
@@ -40,7 +44,7 @@ public class GamesForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         gamesTable = new javax.swing.JTable();
         backToMain = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        loadGamesButton = new javax.swing.JButton();
         clearButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,10 +66,10 @@ public class GamesForm extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Load Games");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        loadGamesButton.setText("Load Games");
+        loadGamesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                loadGamesButtonActionPerformed(evt);
             }
         });
 
@@ -87,7 +91,7 @@ public class GamesForm extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(loadGamesButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(clearButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -100,7 +104,7 @@ public class GamesForm extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(loadGamesButton)
                     .addComponent(backToMain)
                     .addComponent(clearButton))
                 .addContainerGap())
@@ -114,15 +118,13 @@ public class GamesForm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backToMainActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void loadGamesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadGamesButtonActionPerformed
+        clearButton.doClick();
         DefaultTableModel gamesTabelModel = (DefaultTableModel) gamesTable.getModel();
         try
         {
             Class.forName("java.sql.Driver");
-            String user = ""; // Insert UserName
-            String password = ""; // Insert PassWord
-            String URL = "jdbc:mysql://localhost:3306/ipproject";
-            Connection connection = DriverManager.getConnection(URL,user,password);
+            Connection connection = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from games");
             while (resultSet.next())
@@ -141,7 +143,7 @@ public class GamesForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Please re-run the program");
             System.exit(0);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_loadGamesButtonActionPerformed
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         DefaultTableModel gamesTabelModel = (DefaultTableModel) gamesTable.getModel();      
@@ -191,7 +193,7 @@ public class GamesForm extends javax.swing.JFrame {
     private javax.swing.JButton backToMain;
     private javax.swing.JButton clearButton;
     private javax.swing.JTable gamesTable;
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton loadGamesButton;
     // End of variables declaration//GEN-END:variables
 }
