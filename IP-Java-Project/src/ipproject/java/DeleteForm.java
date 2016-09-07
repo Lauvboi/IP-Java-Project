@@ -1,36 +1,33 @@
-package ipproject.java;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package ipproject.java;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.SQLException;
-
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
-import ipproject.java.Utils;
 
 /**
  *
  * @author akhil
  */
-public class GamesForm extends javax.swing.JFrame {
+public class DeleteForm extends javax.swing.JFrame {
 
     /**
-     * Creates new form GamesFrame
+     * Creates new form DeleteForm
      */
-    public GamesForm() {
+    public DeleteForm() {
         initComponents();
     }
     
     private final boolean DEBUG = false;
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,9 +40,8 @@ public class GamesForm extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         gamesTable = new javax.swing.JTable();
-        backToMain = new javax.swing.JButton();
-        loadGamesButton = new javax.swing.JButton();
-        clearButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
+        refreshButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,24 +55,17 @@ public class GamesForm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(gamesTable);
 
-        backToMain.setText("Go Back To Main Screen");
-        backToMain.addActionListener(new java.awt.event.ActionListener() {
+        deleteButton.setText("Delete Selected Entry");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backToMainActionPerformed(evt);
+                deleteButtonActionPerformed(evt);
             }
         });
 
-        loadGamesButton.setText("Load Games");
-        loadGamesButton.addActionListener(new java.awt.event.ActionListener() {
+        refreshButton.setText("Refresh Table");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadGamesButtonActionPerformed(evt);
-            }
-        });
-
-        clearButton.setText("Clear");
-        clearButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearButtonActionPerformed(evt);
+                refreshButtonActionPerformed(evt);
             }
         });
 
@@ -86,41 +75,40 @@ public class GamesForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(loadGamesButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(clearButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(backToMain)
-                        .addGap(0, 23, Short.MAX_VALUE))))
+                .addComponent(deleteButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(refreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(291, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(loadGamesButton)
-                    .addComponent(backToMain)
-                    .addComponent(clearButton))
+                    .addComponent(deleteButton)
+                    .addComponent(refreshButton))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(12, 12, 12)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(41, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backToMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainActionPerformed
-        new MainForm().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_backToMainActionPerformed
-
-    private void loadGamesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadGamesButtonActionPerformed
-        clearButton.doClick();
-        DefaultTableModel gamesTableModel = (DefaultTableModel) gamesTable.getModel();
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        DefaultTableModel gamesTableModel = (DefaultTableModel) gamesTable.getModel();      
+        while (gamesTableModel.getRowCount() != 0)
+        {
+            gamesTableModel.removeRow(0);
+        }
         try
         {
             Class.forName("java.sql.Driver");
@@ -143,15 +131,11 @@ public class GamesForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Please re-run the program");
             System.exit(0);
         }
-    }//GEN-LAST:event_loadGamesButtonActionPerformed
+    }//GEN-LAST:event_refreshButtonActionPerformed
 
-    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         DefaultTableModel gamesTableModel = (DefaultTableModel) gamesTable.getModel();      
-        while (gamesTableModel.getRowCount() != 0)
-        {
-            gamesTableModel.removeRow(0);
-        }
-    }//GEN-LAST:event_clearButtonActionPerformed
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,30 +154,28 @@ public class GamesForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GamesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GamesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GamesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GamesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeleteForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GamesForm().setVisible(true);
+                new DeleteForm().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backToMain;
-    private javax.swing.JButton clearButton;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JTable gamesTable;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton loadGamesButton;
+    private javax.swing.JButton refreshButton;
     // End of variables declaration//GEN-END:variables
 }
