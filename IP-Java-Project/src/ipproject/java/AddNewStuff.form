@@ -116,6 +116,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="srnoInput">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="try&#xa;{&#xa;    Class.forName(&quot;java.sql.Driver&quot;);&#xa;    Connection connection = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);&#xa;    Statement statement = connection.createStatement();&#xa;    String query = &quot;select srno from games order by srno desc limit 1;&quot;;&#xa;    ResultSet resultSet = statement.executeQuery(query);&#xa;    int srno = 0;&#xa;    while(resultSet.next())&#xa;        srno = resultSet.getInt(&quot;srno&quot;)+1;&#xa;    srnoInput.setText(srno+&quot;&quot;);&#xa;}&#xa;catch (SQLException | ClassNotFoundException e)&#xa;{&#xa;    if (DEBUG)&#xa;        e.printStackTrace();&#xa;    JOptionPane.showMessageDialog(null,&quot;Please re-run the program&quot;);&#xa;    System.exit(0);&#xa;}&#xa;srnoInput.setEditable(false);&#xa;srnoInput.setEnabled(false);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="priceInput">
     </Component>

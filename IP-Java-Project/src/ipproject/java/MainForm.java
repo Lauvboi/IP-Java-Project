@@ -31,6 +31,7 @@ public class MainForm extends javax.swing.JFrame {
         welcomeLabel = new javax.swing.JLabel();
         listAllGamesButton = new javax.swing.JButton();
         inputButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,17 +52,26 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        deleteButton.setText("Delete an entry");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(listAllGamesButton)
                         .addGap(18, 18, 18)
-                        .addComponent(inputButton))
+                        .addComponent(inputButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteButton))
                     .addComponent(welcomeLabel))
                 .addGap(23, 23, 23))
         );
@@ -73,7 +83,8 @@ public class MainForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(listAllGamesButton)
-                    .addComponent(inputButton))
+                    .addComponent(inputButton)
+                    .addComponent(deleteButton))
                 .addGap(34, 34, 34))
         );
 
@@ -89,6 +100,11 @@ public class MainForm extends javax.swing.JFrame {
         new AddNewStuff().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_inputButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        new DeleteForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,6 +142,7 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton deleteButton;
     private javax.swing.JButton inputButton;
     private javax.swing.JButton listAllGamesButton;
     private javax.swing.JLabel welcomeLabel;

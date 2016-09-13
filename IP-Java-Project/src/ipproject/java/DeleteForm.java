@@ -24,6 +24,7 @@ public class DeleteForm extends javax.swing.JFrame {
      */
     public DeleteForm() {
         initComponents();
+        loadItems();
     }
     
     private final boolean DEBUG = false;
@@ -38,22 +39,12 @@ public class DeleteForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        gamesTable = new javax.swing.JTable();
         deleteButton = new javax.swing.JButton();
         refreshButton = new javax.swing.JButton();
+        games = new javax.swing.JComboBox<>();
+        backToMain = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        gamesTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Sr. No.", "Name", "Stock", "Price"
-            }
-        ));
-        jScrollPane1.setViewportView(gamesTable);
 
         deleteButton.setText("Delete Selected Entry");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -62,10 +53,17 @@ public class DeleteForm extends javax.swing.JFrame {
             }
         });
 
-        refreshButton.setText("Refresh Table");
+        refreshButton.setText("Refresh");
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refreshButtonActionPerformed(evt);
+            }
+        });
+
+        backToMain.setText("Go Back To Main Screen");
+        backToMain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backToMainActionPerformed(evt);
             }
         });
 
@@ -74,41 +72,53 @@ public class DeleteForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(deleteButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(refreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(games, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(refreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(backToMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(291, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deleteButton)
-                    .addComponent(refreshButton))
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(12, 12, 12)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(41, Short.MAX_VALUE)))
+                .addGap(44, 44, 44)
+                .addComponent(games, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addComponent(deleteButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(refreshButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(backToMain)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
+
+        games.setEditable(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        DefaultTableModel gamesTableModel = (DefaultTableModel) gamesTable.getModel();      
-        while (gamesTableModel.getRowCount() != 0)
-        {
-            gamesTableModel.removeRow(0);
-        }
+        games.removeAllItems();
+        loadItems();
+    }//GEN-LAST:event_refreshButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        games.removeItemAt(games.getSelectedIndex());
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void backToMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainActionPerformed
+        new MainForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backToMainActionPerformed
+    
+    private void loadItems()
+    {
         try
         {
             Class.forName("java.sql.Driver");
@@ -121,7 +131,7 @@ public class DeleteForm extends javax.swing.JFrame {
                 String name = resultSet.getString("name");
                 int stock = resultSet.getInt("stock");
                 int price = resultSet.getInt("price");
-                gamesTableModel.addRow(new Object[] {srno,name,stock,price});
+                games.addItem(srno+" "+name+" "+stock+" "+price);
             }
         }
         catch (ClassNotFoundException | SQLException e)
@@ -131,12 +141,7 @@ public class DeleteForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Please re-run the program");
             System.exit(0);
         }
-    }//GEN-LAST:event_refreshButtonActionPerformed
-
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        DefaultTableModel gamesTableModel = (DefaultTableModel) gamesTable.getModel();      
-    }//GEN-LAST:event_deleteButtonActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */
@@ -173,9 +178,9 @@ public class DeleteForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backToMain;
     private javax.swing.JButton deleteButton;
-    private javax.swing.JTable gamesTable;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> games;
     private javax.swing.JButton refreshButton;
     // End of variables declaration//GEN-END:variables
 }

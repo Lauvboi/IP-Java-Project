@@ -28,6 +28,7 @@ public class GamesForm extends javax.swing.JFrame {
      */
     public GamesForm() {
         initComponents();
+        loadGames();
     }
     
     private final boolean DEBUG = false;
@@ -120,6 +121,19 @@ public class GamesForm extends javax.swing.JFrame {
 
     private void loadGamesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadGamesButtonActionPerformed
         clearButton.doClick();
+        loadGames();
+    }//GEN-LAST:event_loadGamesButtonActionPerformed
+
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        DefaultTableModel gamesTableModel = (DefaultTableModel) gamesTable.getModel();      
+        while (gamesTableModel.getRowCount() != 0)
+        {
+            gamesTableModel.removeRow(0);
+        }
+    }//GEN-LAST:event_clearButtonActionPerformed
+
+    private void loadGames()
+    {
         DefaultTableModel gamesTableModel = (DefaultTableModel) gamesTable.getModel();
         try
         {
@@ -143,16 +157,8 @@ public class GamesForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Please re-run the program");
             System.exit(0);
         }
-    }//GEN-LAST:event_loadGamesButtonActionPerformed
-
-    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
-        DefaultTableModel gamesTableModel = (DefaultTableModel) gamesTable.getModel();      
-        while (gamesTableModel.getRowCount() != 0)
-        {
-            gamesTableModel.removeRow(0);
-        }
-    }//GEN-LAST:event_clearButtonActionPerformed
-
+    }
+    
     /**
      * @param args the command line arguments
      */

@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -138,31 +139,52 @@ public class AddNewStuff extends javax.swing.JFrame {
                 .addContainerGap(90, Short.MAX_VALUE))
         );
 
+        try
+        {
+            Class.forName("java.sql.Driver");
+            Connection connection = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
+            Statement statement = connection.createStatement();
+            String query = "select srno from games order by srno desc limit 1;";
+            ResultSet resultSet = statement.executeQuery(query);
+            int srno = 0;
+            while(resultSet.next())
+            srno = resultSet.getInt("srno")+1;
+            srnoInput.setText(srno+"");
+        }
+        catch (SQLException | ClassNotFoundException e)
+        {
+            if (DEBUG)
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Please re-run the program");
+            System.exit(0);
+        }
+        srnoInput.setEditable(false);
+        srnoInput.setEnabled(false);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        String ssrno = srnoInput.getText();
         String name = nameInput.getText();
         String sstock = stockInput.getText();
         String sprice = priceInput.getText();
         int srno=0,stock=0,price=0;
-        if (ssrno.equals("") || name.equals("") || sstock.equals("") || sprice.equals(""))
+        if (name.equals("") || sstock.equals("") || sprice.equals(""))
         {
             JOptionPane.showMessageDialog(null,"Please fill up the necessary information before trying to submit =)");
             return ;
         }
         try
         {
-            srno = Integer.parseInt(ssrno);
             stock = Integer.parseInt(sstock);
             price = Integer.parseInt(sprice);
+            srno  = Integer.parseInt(srnoInput.getText());
         }
         catch (NumberFormatException e)
         {
             if (DEBUG)
                 e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"SrNo, price, and stock must all be integers");
+            JOptionPane.showMessageDialog(null,"price and stock must both be integers");
             System.exit(0);
         }
         try
