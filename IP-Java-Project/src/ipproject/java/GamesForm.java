@@ -115,7 +115,7 @@ public class GamesForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backToMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainActionPerformed
-        new MainForm().setVisible(true);
+        new LoggedInForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backToMainActionPerformed
 
@@ -149,6 +149,9 @@ public class GamesForm extends javax.swing.JFrame {
                 int price = resultSet.getInt("price");
                 gamesTableModel.addRow(new Object[] {srno,name,stock,price});
             }
+            resultSet.close();
+            statement.close();
+            connection.close();
         }
         catch (ClassNotFoundException | SQLException e)
         {

@@ -113,7 +113,7 @@ public class DeleteForm extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void backToMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainActionPerformed
-        new MainForm().setVisible(true);
+        new LoggedInForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backToMainActionPerformed
     

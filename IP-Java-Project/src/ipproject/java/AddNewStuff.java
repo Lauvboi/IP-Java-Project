@@ -194,7 +194,8 @@ public class AddNewStuff extends javax.swing.JFrame {
             Statement statement = connection.createStatement();
             String query="insert into games values ("+srno+",\'"+name+"\',"+stock+","+price+");";
             int n = statement.executeUpdate(query);
-            
+            statement.close();
+            connection.close();
         }
         catch (SQLException | ClassNotFoundException e)
         {
@@ -207,7 +208,7 @@ public class AddNewStuff extends javax.swing.JFrame {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void backToMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainActionPerformed
-            new MainForm().setVisible(true);
+            new LoggedInForm().setVisible(true);
             this.dispose();
     }//GEN-LAST:event_backToMainActionPerformed
 

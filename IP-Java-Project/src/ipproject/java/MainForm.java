@@ -1,10 +1,11 @@
-package ipproject.java;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package ipproject.java;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,34 +29,34 @@ public class MainForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        welcomeLabel = new javax.swing.JLabel();
-        listAllGamesButton = new javax.swing.JButton();
-        inputButton = new javax.swing.JButton();
-        deleteButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        createAccountButton = new javax.swing.JButton();
+        loginButton = new javax.swing.JButton();
+        exitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        welcomeLabel.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
-        welcomeLabel.setText("Welcome to NRK Games");
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
+        jLabel1.setText("NRK Games");
 
-        listAllGamesButton.setText("List of all games");
-        listAllGamesButton.addActionListener(new java.awt.event.ActionListener() {
+        createAccountButton.setText("Create Account");
+        createAccountButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listAllGamesButtonActionPerformed(evt);
+                createAccountButtonActionPerformed(evt);
             }
         });
 
-        inputButton.setText("Insert new entry");
-        inputButton.addActionListener(new java.awt.event.ActionListener() {
+        loginButton.setText("Login");
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputButtonActionPerformed(evt);
+                loginButtonActionPerformed(evt);
             }
         });
 
-        deleteButton.setText("Delete an entry");
-        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+        exitButton.setText("Exit");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteButtonActionPerformed(evt);
+                exitButtonActionPerformed(evt);
             }
         });
 
@@ -63,48 +64,51 @@ public class MainForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(listAllGamesButton)
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(createAccountButton)
                         .addGap(18, 18, 18)
-                        .addComponent(inputButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(deleteButton))
-                    .addComponent(welcomeLabel))
-                .addGap(23, 23, 23))
+                        .addComponent(loginButton)
+                        .addGap(26, 26, 26)
+                        .addComponent(exitButton)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(welcomeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1)
+                .addGap(87, 87, 87)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(listAllGamesButton)
-                    .addComponent(inputButton)
-                    .addComponent(deleteButton))
-                .addGap(34, 34, 34))
+                    .addComponent(createAccountButton)
+                    .addComponent(loginButton)
+                    .addComponent(exitButton))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listAllGamesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listAllGamesButtonActionPerformed
-        new GamesForm().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_listAllGamesButtonActionPerformed
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        int n = JOptionPane.showConfirmDialog(null,"Do you want to exit");
+        if (n==0)
+            System.exit(0);
+    }//GEN-LAST:event_exitButtonActionPerformed
 
-    private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
-        new AddNewStuff().setVisible(true);
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        new LoginForm().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_inputButtonActionPerformed
+    }//GEN-LAST:event_loginButtonActionPerformed
 
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        new DeleteForm().setVisible(true);
+    private void createAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountButtonActionPerformed
+        new CreateAccountForm().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_deleteButtonActionPerformed
+    }//GEN-LAST:event_createAccountButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,9 +146,9 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton deleteButton;
-    private javax.swing.JButton inputButton;
-    private javax.swing.JButton listAllGamesButton;
-    private javax.swing.JLabel welcomeLabel;
+    private javax.swing.JButton createAccountButton;
+    private javax.swing.JButton exitButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton loginButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.13, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.15, for Linux (x86_64)
 --
 -- Host: localhost    Database: ipproject
 -- ------------------------------------------------------
--- Server version	5.7.13-0ubuntu0.16.04.2
+-- Server version	5.7.15-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -40,6 +40,28 @@ LOCK TABLES `games` WRITE;
 INSERT INTO `games` VALUES (1,'CoD BO3',5,4000),(2,'CoD BO2',3,2000),(3,'CoD BO1',7,800),(4,'Far Cry 4',7,2599);
 /*!40000 ALTER TABLE `games` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `username` varchar(20) DEFAULT NULL,
+  `password` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -50,4 +72,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-21 21:48:22
+-- Dump completed on 2016-10-16 18:11:37
