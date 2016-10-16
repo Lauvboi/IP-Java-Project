@@ -109,7 +109,25 @@ public class DeleteForm extends javax.swing.JFrame {
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        games.removeItemAt(games.getSelectedIndex());
+        int i = games.getSelectedIndex();
+        String item = games.getSelectedItem().toString().split(" ")[0];
+        try
+        {
+            Class.forName("java.sql.Driver");
+            Connection connection = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
+            Statement statement = connection.createStatement();
+            int n = statement.executeUpdate("delete from games where srno="+item);
+            games.removeItemAt(i);
+            statement.close();
+            connection.close();
+        }
+        catch (ClassNotFoundException | SQLException e)
+        {
+            if (DEBUG)
+                e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Please re-run the program");
+            System.exit(0);
+        }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void backToMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainActionPerformed

@@ -5,7 +5,7 @@ package ipproject.java;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author akhil
@@ -18,6 +18,8 @@ public class LoggedInForm extends javax.swing.JFrame {
     public LoggedInForm() {
         initComponents();
     }
+    
+    public static boolean isAuthorized = false;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,12 +99,24 @@ public class LoggedInForm extends javax.swing.JFrame {
     }//GEN-LAST:event_listAllGamesButtonActionPerformed
 
     private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
-        new AddNewStuff().setVisible(true);
+        if (isAuthorized)
+        {
+            JOptionPane.showMessageDialog(null,"You are authorized, loading page to add items");
+            new AddNewStuff().setVisible(true);
+        }
+        else
+        {           
+            JOptionPane.showMessageDialog(null,"Proceeding to authentication page, please try again later");
+            new CheckAdminForm().setVisible(true);
+        }
         this.dispose();
     }//GEN-LAST:event_inputButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        new DeleteForm().setVisible(true);
+        if (isAuthorized)
+            new DeleteForm().setVisible(true);
+        else
+            new CheckAdminForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_deleteButtonActionPerformed
 

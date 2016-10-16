@@ -194,6 +194,8 @@ public class AddNewStuff extends javax.swing.JFrame {
             Statement statement = connection.createStatement();
             String query="insert into games values ("+srno+",\'"+name+"\',"+stock+","+price+");";
             int n = statement.executeUpdate(query);
+            JOptionPane.showMessageDialog(null,"Game added successfully");
+            clearButton.doClick();
             statement.close();
             connection.close();
         }

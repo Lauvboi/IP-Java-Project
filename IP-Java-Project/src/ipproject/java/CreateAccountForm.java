@@ -173,7 +173,7 @@ public class CreateAccountForm extends javax.swing.JFrame {
         }
         if(username.length()>20 || password.length()>20)
         {
-            JOptionPane.showMessageDialog(null,"Please enter shorter details(max 20 characters");
+            JOptionPane.showMessageDialog(null,"Please enter shorter details(max 20 characters)");
             return ;
         }
         try
@@ -192,15 +192,15 @@ public class CreateAccountForm extends javax.swing.JFrame {
                     break;
                 }
             }
-            rs.close();
-            s.close();
-            c.close();
             if(duplicate)
             {
                 JOptionPane.showMessageDialog(null,"Username is already taken!");
                 return ;
             }
             int n = s.executeUpdate("insert into users values(\""+username+"\",\""+password+"\")");
+            rs.close();
+            s.close();
+            c.close();
         }
         catch (ClassNotFoundException | SQLException e)
         {
