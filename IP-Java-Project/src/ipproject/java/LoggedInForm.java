@@ -114,9 +114,14 @@ public class LoggedInForm extends javax.swing.JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         if (isAuthorized)
+        {
+            JOptionPane.showMessageDialog(null,"You are authorized, loading page to add items");
             new DeleteForm().setVisible(true);
+        }
         else
+        {   JOptionPane.showMessageDialog(null,"Proceeding to authentication page, please try again later");
             new CheckAdminForm().setVisible(true);
+        }
         this.dispose();
     }//GEN-LAST:event_deleteButtonActionPerformed
 
