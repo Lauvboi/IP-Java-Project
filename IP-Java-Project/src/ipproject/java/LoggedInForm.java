@@ -34,11 +34,12 @@ public class LoggedInForm extends javax.swing.JFrame {
         listAllGamesButton = new javax.swing.JButton();
         inputButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
+        buyGamesButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        welcomeLabel.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
-        welcomeLabel.setText("Welcome to NRK Games");
+        welcomeLabel.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        welcomeLabel.setText("Welcome to NRK Games, "+LoginForm.loggedInUser);
 
         listAllGamesButton.setText("List of all games");
         listAllGamesButton.addActionListener(new java.awt.event.ActionListener() {
@@ -61,34 +62,51 @@ public class LoggedInForm extends javax.swing.JFrame {
             }
         });
 
+        buyGamesButton.setText("Buy Games");
+        buyGamesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buyGamesButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(listAllGamesButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(inputButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(deleteButton))
-                    .addComponent(welcomeLabel))
-                .addGap(23, 23, 23))
+                    .addComponent(inputButton)
+                    .addComponent(listAllGamesButton))
+                .addGap(148, 148, 148)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(buyGamesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteButton))
+                .addGap(66, 66, 66))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(welcomeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(listAllGamesButton)
+                    .addComponent(buyGamesButton))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inputButton)
                     .addComponent(deleteButton))
                 .addGap(34, 34, 34))
         );
+
+        if (!LoginForm.isUserAdmin)
+        inputButton.setVisible(false);
+        if (!LoginForm.isUserAdmin)
+        deleteButton.setVisible(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -99,31 +117,19 @@ public class LoggedInForm extends javax.swing.JFrame {
     }//GEN-LAST:event_listAllGamesButtonActionPerformed
 
     private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
-        if (isAuthorized)
-        {
-            JOptionPane.showMessageDialog(null,"You are authorized, loading page to add items");
-            new AddNewStuff().setVisible(true);
-        }
-        else
-        {           
-            JOptionPane.showMessageDialog(null,"Proceeding to authentication page, please try again later");
-            new CheckAdminForm().setVisible(true);
-        }
+        new AddNewStuff().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_inputButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        if (isAuthorized)
-        {
-            JOptionPane.showMessageDialog(null,"You are authorized, loading page to add items");
-            new DeleteForm().setVisible(true);
-        }
-        else
-        {   JOptionPane.showMessageDialog(null,"Proceeding to authentication page, please try again later");
-            new CheckAdminForm().setVisible(true);
-        }
+        new DeleteForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void buyGamesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyGamesButtonActionPerformed
+        new BuyGamesForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_buyGamesButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,6 +168,7 @@ public class LoggedInForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buyGamesButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton inputButton;
     private javax.swing.JButton listAllGamesButton;

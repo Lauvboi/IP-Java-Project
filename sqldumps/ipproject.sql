@@ -37,7 +37,7 @@ CREATE TABLE `games` (
 
 LOCK TABLES `games` WRITE;
 /*!40000 ALTER TABLE `games` DISABLE KEYS */;
-INSERT INTO `games` VALUES (1,'CoD BO3',5,4000),(2,'CoD BO2',3,2000),(3,'Far Cry 4',8,1700);
+INSERT INTO `games` VALUES (0,'Fifa 17',50,3799),(1,'Far Cry 4',17,1799),(2,'GTA V',2,2499),(3,'Call Of Duty : Black Ops III',10,2799);
 /*!40000 ALTER TABLE `games` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,7 +60,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('akhil','password12345');
+INSERT INTO `users` VALUES ('admin','nrkgamesadmin123');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -73,4 +73,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-17  0:00:26
+-- Dump completed on 2016-10-18  0:37:43

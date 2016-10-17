@@ -11,23 +11,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author akhil
  */
-public class DeleteForm extends javax.swing.JFrame {
+public class BuyGamesForm extends javax.swing.JFrame {
 
     /**
-     * Creates new form DeleteForm
+     * Creates new form BuyGamesForm
      */
-    public DeleteForm() {
+    public BuyGamesForm() {
         initComponents();
         loadItems();
     }
-    
+
     private final boolean DEBUG = false;
+
 
 
     /**
@@ -39,31 +39,15 @@ public class DeleteForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        deleteButton = new javax.swing.JButton();
-        refreshButton = new javax.swing.JButton();
         games = new javax.swing.JComboBox<>();
-        backToMain = new javax.swing.JButton();
+        buyButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        deleteButton.setText("Delete Selected Entry");
-        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+        buyButton.setText("Buy Games");
+        buyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteButtonActionPerformed(evt);
-            }
-        });
-
-        refreshButton.setText("Refresh");
-        refreshButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshButtonActionPerformed(evt);
-            }
-        });
-
-        backToMain.setText("Go Back To Main Screen");
-        backToMain.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backToMainActionPerformed(evt);
+                buyButtonActionPerformed(evt);
             }
         });
 
@@ -74,53 +58,50 @@ public class DeleteForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(games, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(refreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)))
+                        .addGap(99, 99, 99)
+                        .addComponent(games, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(backToMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(128, 128, 128)
+                        .addComponent(buyButton)))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(games, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
-                .addComponent(deleteButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(refreshButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(backToMain)
-                .addContainerGap(75, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(games, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addComponent(buyButton)
+                .addGap(88, 88, 88))
         );
-
-        games.setEditable(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        games.removeAllItems();
-        loadItems();
-    }//GEN-LAST:event_refreshButtonActionPerformed
-
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-       
+    private void buyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyButtonActionPerformed
         try
         {
-            int i = games.getSelectedIndex();
-            String item = games.getSelectedItem().toString().split(" ")[0];
+            int selectedGameSrno = Integer.valueOf(games.getSelectedItem().toString().split(" ")[0]);
             Class.forName("java.sql.Driver");
             Connection connection = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
             Statement statement = connection.createStatement();
-            int n = statement.executeUpdate("delete from games where srno="+item);
-            games.removeItemAt(i);
-            statement.close();
-            connection.close();
+            ResultSet resultSet = statement.executeQuery("select * from games where srno="+selectedGameSrno);
+            resultSet.next();
+            int srno = resultSet.getInt("srno");
+            String name = resultSet.getString("name");
+            int stock = resultSet.getInt("stock");
+            int price = resultSet.getInt("price");
+            JOptionPane.showMessageDialog(null,"Thank you for purchasing "+name+", "+LoginForm.loggedInUser+"\nAmount to be paid is Rs."+price+"/-");
+            stock--;
+            if (stock==0)
+            {
+                int n = statement.executeUpdate("delete from games where srno="+selectedGameSrno);
+            }
+            else
+            {
+                int n = statement.executeUpdate("update games set stock="+stock+" where srno="+srno);
+            }
+            loadItems();
         }
            catch (NullPointerException | ClassNotFoundException | SQLException e)
         {
@@ -130,15 +111,11 @@ public class DeleteForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
             return ;
         }
-    }//GEN-LAST:event_deleteButtonActionPerformed
-
-    private void backToMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainActionPerformed
-        new LoggedInForm().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_backToMainActionPerformed
-    
+    }//GEN-LAST:event_buyButtonActionPerformed
+   
     private void loadItems()
     {
+        games.removeAllItems();
         try
         {
             Class.forName("java.sql.Driver");
@@ -180,28 +157,26 @@ public class DeleteForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DeleteForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuyGamesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DeleteForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuyGamesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DeleteForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuyGamesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DeleteForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuyGamesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DeleteForm().setVisible(true);
+                new BuyGamesForm().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backToMain;
-    private javax.swing.JButton deleteButton;
+    private javax.swing.JButton buyButton;
     private javax.swing.JComboBox<String> games;
-    private javax.swing.JButton refreshButton;
     // End of variables declaration//GEN-END:variables
 }

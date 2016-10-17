@@ -27,6 +27,8 @@ public class LoginForm extends javax.swing.JFrame {
     }
 
     private final boolean DEBUG = false;
+    public static boolean isUserAdmin = false;
+    public static String loggedInUser = "";
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -167,12 +169,18 @@ public class LoginForm extends javax.swing.JFrame {
             }
             else if(password.equals(rs.getString("password")))
             {
+                if (username.equals("admin"))
+                {
+                    isUserAdmin = true;
+                }
+                loggedInUser = username;
                 new LoggedInForm().setVisible(true);
                 this.dispose();
             }
             else
             {
                 JOptionPane.showMessageDialog(null,"Invalid password for user "+username);
+                passwordInput.setText("");
             }
             rs.close();
             s.close();
@@ -196,7 +204,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        int n = JOptionPane.showConfirmDialog(null,"Do you want cancel?");
+        int n = JOptionPane.showConfirmDialog(null,"Do you want to cancel login?");
         if (n==0)
         {
             new MainForm().setVisible(true);

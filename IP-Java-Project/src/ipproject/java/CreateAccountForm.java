@@ -155,7 +155,7 @@ public class CreateAccountForm extends javax.swing.JFrame {
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        int n = JOptionPane.showConfirmDialog(null,"Do you want to exit the program?");
+        int n = JOptionPane.showConfirmDialog(null,"Do you want to to cancel account creation?");
         if (n==0)
         {
             new MainForm().setVisible(true);
@@ -166,6 +166,12 @@ public class CreateAccountForm extends javax.swing.JFrame {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         String username = usernameInput.getText();
         String password = new String(passwordInput.getPassword());
+        if (username.equals("admin"))
+        {
+            JOptionPane.showMessageDialog(null,"This username is reserved for administrators");
+            resetFieldsButton.doClick();
+            return ;
+        }
         if (username.equals("") || password.equals(""))
         {
             JOptionPane.showMessageDialog(null,"Please enter proper details");

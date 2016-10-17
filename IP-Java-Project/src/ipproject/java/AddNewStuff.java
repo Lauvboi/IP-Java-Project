@@ -139,27 +139,7 @@ public class AddNewStuff extends javax.swing.JFrame {
                 .addContainerGap(90, Short.MAX_VALUE))
         );
 
-        try
-        {
-            Class.forName("java.sql.Driver");
-            Connection connection = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
-            Statement statement = connection.createStatement();
-            String query = "select srno from games order by srno desc limit 1;";
-            ResultSet resultSet = statement.executeQuery(query);
-            int srno = 0;
-            while(resultSet.next())
-            srno = resultSet.getInt("srno")+1;
-            srnoInput.setText(srno+"");
-        }
-        catch (SQLException | ClassNotFoundException e)
-        {
-            if (DEBUG)
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Please re-run the program");
-            System.exit(0);
-        }
-        srnoInput.setEditable(false);
-        srnoInput.setEnabled(false);
+        setSerialNumber();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -168,8 +148,9 @@ public class AddNewStuff extends javax.swing.JFrame {
         String name = nameInput.getText();
         String sstock = stockInput.getText();
         String sprice = priceInput.getText();
+        String ssrno = srnoInput.getText();
         int srno=0,stock=0,price=0;
-        if (name.equals("") || sstock.equals("") || sprice.equals(""))
+        if (name.equals("") || sstock.equals("") || sprice.equals("") || ssrno.equals(""))
         {
             JOptionPane.showMessageDialog(null,"Please fill up the necessary information before trying to submit =)");
             return ;
@@ -178,33 +159,48 @@ public class AddNewStuff extends javax.swing.JFrame {
         {
             stock = Integer.parseInt(sstock);
             price = Integer.parseInt(sprice);
-            srno  = Integer.parseInt(srnoInput.getText());
+            srno  = Integer.parseInt(ssrno);
         }
         catch (NumberFormatException e)
         {
             if (DEBUG)
                 e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"price and stock must both be integers");
-            System.exit(0);
+            else
+                JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
+            return ;
         }
         try
         {
             Class.forName("java.sql.Driver");
             Connection connection = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
             Statement statement = connection.createStatement();
-            String query="insert into games values ("+srno+",\'"+name+"\',"+stock+","+price+");";
+            String query="select srno from games";
+            ResultSet resultSet = statement.executeQuery(query);
+            while(resultSet.next())
+            {
+                int s = resultSet.getInt("srno");
+                if (s==srno)
+                {
+                    JOptionPane.showMessageDialog(null,"srno "+srno+" already exists in database, please use another");
+                    srnoInput.requestFocus();
+                    return ;
+                }
+            }
+            query="insert into games values ("+srno+",\'"+name+"\',"+stock+","+price+");";
             int n = statement.executeUpdate(query);
             JOptionPane.showMessageDialog(null,"Game added successfully");
             clearButton.doClick();
+            setSerialNumber();
             statement.close();
             connection.close();
         }
-        catch (SQLException | ClassNotFoundException e)
+        catch (ClassNotFoundException | SQLException e)
         {
             if (DEBUG)
                 e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Please re-run the program");
-            System.exit(0);
+            else
+                JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
+            return ;
         }
             
     }//GEN-LAST:event_submitButtonActionPerformed
@@ -220,7 +216,28 @@ public class AddNewStuff extends javax.swing.JFrame {
             srnoInput.setText("");
             stockInput.setText("");
     }//GEN-LAST:event_clearButtonActionPerformed
-
+    private void setSerialNumber()
+    {
+        try
+        {
+            Class.forName("java.sql.Driver");
+            Connection connection = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
+            Statement statement = connection.createStatement();
+            String query = "select srno from games order by srno desc limit 1;";
+            ResultSet resultSet = statement.executeQuery(query);
+            int srno = 0;
+            while(resultSet.next())
+                srno = resultSet.getInt("srno")+1;
+            srnoInput.setText(srno+"");
+}
+catch (SQLException | ClassNotFoundException e)
+{
+    if (DEBUG)
+        e.printStackTrace();
+    JOptionPane.showMessageDialog(null,"Please re-run the program");
+    System.exit(0);
+}
+    }
     /**
      * @param args the command line arguments
      */

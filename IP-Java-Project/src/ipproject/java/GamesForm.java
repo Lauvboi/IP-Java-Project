@@ -153,12 +153,13 @@ public class GamesForm extends javax.swing.JFrame {
             statement.close();
             connection.close();
         }
-        catch (ClassNotFoundException | SQLException e)
+           catch (ClassNotFoundException | SQLException e)
         {
             if (DEBUG)
                 e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Please re-run the program");
-            System.exit(0);
+            else
+                JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
+            return ;
         }
     }
     
