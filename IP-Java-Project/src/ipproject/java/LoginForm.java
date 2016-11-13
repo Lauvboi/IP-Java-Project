@@ -191,11 +191,13 @@ public class LoginForm extends javax.swing.JFrame {
                     break;
                 }
             }
+            String pw = rs.getString("password");
+            int o = rs.getInt("offset");
             if (!doesUserExist)
             {
                 JOptionPane.showMessageDialog(null,"Please enter a registered username");
             }
-            else if(password.equals(Utils.decrypt(rs.getString("password"),rs.getInt("offset"))))
+            else if(pw.equals(Utils.encrypt(password, o)))
             {
                 loggedInUser = username;
                 new LoggedInForm().setVisible(true);

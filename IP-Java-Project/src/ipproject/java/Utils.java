@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
     
     /**
      * 
-     * @param s : String to be encrypted
+     * @param s String to be encrypted
      * @return Encrypted String
      * Based on the length an offset is chosen
      * and all chars in the String shifted by that offset
@@ -38,6 +38,26 @@ import javax.swing.table.DefaultTableModel;
             s += c;            
         }
         CreateAccountForm.offset = o;
+        return s;
+    }
+    
+    /**
+     * 
+     * @param s String to be encrypted
+     * @param o offset to encrypt by
+     * @return encrypted String
+     */
+    public static String encrypt(String s, int o)
+    {
+        String n = s;
+        s = "";
+        int offset = o*n.length();
+        for (int i = 0;i<n.length();i++)
+        {
+            char c = n.charAt(i);
+            c += offset;
+            s += c;            
+        }
         return s;
     }
     
