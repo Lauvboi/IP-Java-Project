@@ -47,6 +47,7 @@ public class LoginForm extends javax.swing.JFrame {
         resetFieldsButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
+        showPassword = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +83,13 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        showPassword.setText("Show Password");
+        showPassword.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                showPasswordItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,15 +99,18 @@ public class LoginForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(75, 75, 75)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(20, 20, 20)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(passwordInput, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                            .addComponent(usernameInput)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(20, 20, 20)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(passwordInput, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                                    .addComponent(usernameInput)))
+                            .addComponent(showPassword)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(LoginButton)
@@ -122,7 +133,9 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(passwordInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
+                .addGap(10, 10, 10)
+                .addComponent(showPassword)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LoginButton)
                     .addComponent(resetFieldsButton)
@@ -147,6 +160,21 @@ public class LoginForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Credentials cannot be longer than 20 characters");
             return ;
         }
+        if (username.equals("admin"))
+        {
+            if (password.equals("nrkgamesadmin123"))
+            {
+                isUserAdmin=true;
+                loggedInUser=username;
+                new LoggedInForm().setVisible(true);
+                this.dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"Wrong password for admin!");
+            }
+            return ;
+        }
         try
         {
             Class.forName("java.sql.Driver");
@@ -167,12 +195,8 @@ public class LoginForm extends javax.swing.JFrame {
             {
                 JOptionPane.showMessageDialog(null,"Please enter a registered username");
             }
-            else if(password.equals(rs.getString("password")))
+            else if(password.equals(Utils.decrypt(rs.getString("password"),rs.getInt("offset"))))
             {
-                if (username.equals("admin"))
-                {
-                    isUserAdmin = true;
-                }
                 loggedInUser = username;
                 new LoggedInForm().setVisible(true);
                 this.dispose();
@@ -215,7 +239,15 @@ public class LoginForm extends javax.swing.JFrame {
     private void resetFieldsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetFieldsButtonActionPerformed
         usernameInput.setText("");
         passwordInput.setText("");
+        showPassword.setSelected(false);
     }//GEN-LAST:event_resetFieldsButtonActionPerformed
+
+    private void showPasswordItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_showPasswordItemStateChanged
+        if (showPassword.isSelected())
+            passwordInput.setEchoChar('\u0000');
+        else
+            passwordInput.setEchoChar('*');
+    }//GEN-LAST:event_showPasswordItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -260,6 +292,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField passwordInput;
     private javax.swing.JButton resetFieldsButton;
+    private javax.swing.JCheckBox showPassword;
     private javax.swing.JTextField usernameInput;
     // End of variables declaration//GEN-END:variables
 }

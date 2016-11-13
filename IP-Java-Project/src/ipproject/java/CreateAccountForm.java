@@ -26,7 +26,8 @@ public class CreateAccountForm extends javax.swing.JFrame {
         initComponents();
     }
 
-        private final boolean DEBUG = false;
+        private final boolean DEBUG = false;    
+        public static int offset = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,6 +48,7 @@ public class CreateAccountForm extends javax.swing.JFrame {
         cancelButton = new javax.swing.JButton();
         resetFieldsButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
+        showPassword = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,6 +88,13 @@ public class CreateAccountForm extends javax.swing.JFrame {
             }
         });
 
+        showPassword.setText("Show Password");
+        showPassword.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                showPasswordItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,6 +107,9 @@ public class CreateAccountForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(showPassword))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -127,7 +139,9 @@ public class CreateAccountForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(passwordInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(showPassword)
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitButton)
                     .addComponent(cancelButton)
@@ -203,7 +217,8 @@ public class CreateAccountForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Username is already taken!");
                 return ;
             }
-            int n = s.executeUpdate("insert into users values(\""+username+"\",\""+password+"\")");
+            password=Utils.encrypt(password);
+            int n = s.executeUpdate("insert into users values(\""+username+"\",\""+password+"\","+offset+")");
             rs.close();
             s.close();
             c.close();
@@ -220,6 +235,14 @@ public class CreateAccountForm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_submitButtonActionPerformed
 
+    private void showPasswordItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_showPasswordItemStateChanged
+        if (showPassword.isSelected())
+            passwordInput.setEchoChar('\u0000');
+        else
+            passwordInput.setEchoChar('*');
+    }//GEN-LAST:event_showPasswordItemStateChanged
+
+    
     /**
      * @param args the command line arguments
      */
@@ -264,6 +287,7 @@ public class CreateAccountForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField passwordInput;
     private javax.swing.JButton resetFieldsButton;
+    private javax.swing.JCheckBox showPassword;
     private javax.swing.JButton submitButton;
     private javax.swing.JTextField usernameInput;
     // End of variables declaration//GEN-END:variables

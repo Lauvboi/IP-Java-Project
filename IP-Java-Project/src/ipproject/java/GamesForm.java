@@ -125,11 +125,7 @@ public class GamesForm extends javax.swing.JFrame {
     }//GEN-LAST:event_loadGamesButtonActionPerformed
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
-        DefaultTableModel gamesTableModel = (DefaultTableModel) gamesTable.getModel();      
-        while (gamesTableModel.getRowCount() != 0)
-        {
-            gamesTableModel.removeRow(0);
-        }
+        Utils.clearTable(gamesTable);
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void loadGames()

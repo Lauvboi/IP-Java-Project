@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,11 +24,30 @@ public class BuyGamesForm extends javax.swing.JFrame {
      */
     public BuyGamesForm() {
         initComponents();
+        try
+        {
+            Class.forName("java.sql.Driver");
+            c = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
+            s = c.createStatement();
+        }
+        catch (ClassNotFoundException | SQLException e)
+        {
+            if (DEBUG)
+            {
+                e.printStackTrace();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Error Occurred: "+e.getMessage());
+            }
+        }
         loadItems();
     }
 
     private final boolean DEBUG = false;
-
+    Connection c;
+    Statement s;
+    ResultSet rs;
 
 
     /**
@@ -39,8 +59,10 @@ public class BuyGamesForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        games = new javax.swing.JComboBox<>();
         buyButton = new javax.swing.JButton();
+        goBackButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        gamesTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,59 +73,80 @@ public class BuyGamesForm extends javax.swing.JFrame {
             }
         });
 
+        goBackButton.setText("Go Back");
+        goBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goBackButtonActionPerformed(evt);
+            }
+        });
+
+        gamesTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Sr. No.", "Name", "Stock", "Price"
+            }
+        ));
+        jScrollPane2.setViewportView(gamesTable);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(games, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(buyButton)))
-                .addContainerGap(144, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buyButton)
+                        .addGap(142, 142, 142)
+                        .addComponent(goBackButton)
+                        .addGap(39, 39, 39))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(games, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
-                .addComponent(buyButton)
-                .addGap(88, 88, 88))
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buyButton)
+                    .addComponent(goBackButton))
+                .addGap(22, 22, 22))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void buyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyButtonActionPerformed
+        DefaultTableModel gamesTableModel = (DefaultTableModel) gamesTable.getModel();
         try
         {
-            int selectedGameSrno = Integer.valueOf(games.getSelectedItem().toString().split(" ")[0]);
-            Class.forName("java.sql.Driver");
-            Connection connection = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from games where srno="+selectedGameSrno);
-            resultSet.next();
-            int srno = resultSet.getInt("srno");
-            String name = resultSet.getString("name");
-            int stock = resultSet.getInt("stock");
-            int price = resultSet.getInt("price");
+            int selectedRow = gamesTable.getSelectedRow();
+            int selectedGameSrno = Integer.valueOf(gamesTableModel.getValueAt(selectedRow,0).toString());
+            System.out.println(selectedGameSrno);
+            rs = s.executeQuery("select * from games where srno="+selectedGameSrno);
+            rs.next();
+            int srno = rs.getInt("srno");
+            String name = rs.getString("name");
+            int stock = rs.getInt("stock");
+            int price = rs.getInt("price");
             JOptionPane.showMessageDialog(null,"Thank you for purchasing "+name+", "+LoginForm.loggedInUser+"\nAmount to be paid is Rs."+price+"/-");
             stock--;
             if (stock==0)
             {
-                int n = statement.executeUpdate("delete from games where srno="+selectedGameSrno);
+                int n = s.executeUpdate("delete from games where srno="+selectedGameSrno);
             }
             else
             {
-                int n = statement.executeUpdate("update games set stock="+stock+" where srno="+srno);
+                int n = s.executeUpdate("update games set stock="+stock+" where srno="+srno);
             }
             loadItems();
         }
-           catch (NullPointerException | ClassNotFoundException | SQLException e)
+           catch (NullPointerException | SQLException e)
         {
             if (DEBUG)
                 e.printStackTrace();
@@ -112,26 +155,29 @@ public class BuyGamesForm extends javax.swing.JFrame {
             return ;
         }
     }//GEN-LAST:event_buyButtonActionPerformed
+
+    private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
+        new LoggedInForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_goBackButtonActionPerformed
    
     private void loadItems()
     {
-        games.removeAllItems();
+        DefaultTableModel gamesTableModel = (DefaultTableModel) gamesTable.getModel();
+        Utils.clearTable(gamesTable);
         try
         {
-            Class.forName("java.sql.Driver");
-            Connection connection = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from games");
-            while (resultSet.next())
+            rs= s.executeQuery("select * from games");
+            while (rs.next())
             {
-                int srno = resultSet.getInt("srno");
-                String name = resultSet.getString("name");
-                int stock = resultSet.getInt("stock");
-                int price = resultSet.getInt("price");
-                games.addItem(srno+" "+name+" "+stock+" "+price);
+                int srno = rs.getInt("srno");
+                String name = rs.getString("name");
+                int stock = rs.getInt("stock");
+                int price = rs.getInt("price");
+                gamesTableModel.addRow(new Object[] {srno,name,stock,price});
             }
         }
-           catch (ClassNotFoundException | SQLException e)
+           catch (SQLException e)
         {
             if (DEBUG)
                 e.printStackTrace();
@@ -140,6 +186,8 @@ public class BuyGamesForm extends javax.swing.JFrame {
             return ;
         }
     }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -177,6 +225,8 @@ public class BuyGamesForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buyButton;
-    private javax.swing.JComboBox<String> games;
+    private javax.swing.JTable gamesTable;
+    private javax.swing.JButton goBackButton;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

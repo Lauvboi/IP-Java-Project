@@ -26,10 +26,26 @@ public class AddNewStuff extends javax.swing.JFrame {
      */
     public AddNewStuff() {
         initComponents();
+        try
+        {
+            Class.forName("java.sql.Driver");
+            c = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
+            s = c.createStatement();
+        }
+        catch (ClassNotFoundException | SQLException e)
+        {
+            if (DEBUG)
+                e.printStackTrace();
+            else
+                JOptionPane.showMessageDialog(null, "Error Occurred: "+e.getMessage());
+        }
     }
     
     private final boolean DEBUG = false;
 
+    Connection c;
+    Statement s;
+    ResultSet rs;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -169,16 +185,18 @@ public class AddNewStuff extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
             return ;
         }
+        if (srno==0)
+        {
+            JOptionPane.showMessageDialog(null,"Serial Number cannot be 0!");
+            return ;
+        }
         try
         {
-            Class.forName("java.sql.Driver");
-            Connection connection = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
-            Statement statement = connection.createStatement();
             String query="select srno from games";
-            ResultSet resultSet = statement.executeQuery(query);
-            while(resultSet.next())
+            rs = s.executeQuery(query);
+            while(rs.next())
             {
-                int s = resultSet.getInt("srno");
+                int s = rs.getInt("srno");
                 if (s==srno)
                 {
                     JOptionPane.showMessageDialog(null,"srno "+srno+" already exists in database, please use another");
@@ -187,14 +205,12 @@ public class AddNewStuff extends javax.swing.JFrame {
                 }
             }
             query="insert into games values ("+srno+",\'"+name+"\',"+stock+","+price+");";
-            int n = statement.executeUpdate(query);
+            int n = s.executeUpdate(query);
             JOptionPane.showMessageDialog(null,"Game added successfully");
             clearButton.doClick();
             setSerialNumber();
-            statement.close();
-            connection.close();
         }
-        catch (ClassNotFoundException | SQLException e)
+        catch (SQLException e)
         {
             if (DEBUG)
                 e.printStackTrace();
@@ -225,18 +241,18 @@ public class AddNewStuff extends javax.swing.JFrame {
             Statement statement = connection.createStatement();
             String query = "select srno from games order by srno desc limit 1;";
             ResultSet resultSet = statement.executeQuery(query);
-            int srno = 0;
+            int srno = 1;
             while(resultSet.next())
                 srno = resultSet.getInt("srno")+1;
             srnoInput.setText(srno+"");
-}
-catch (SQLException | ClassNotFoundException e)
-{
-    if (DEBUG)
-        e.printStackTrace();
-    JOptionPane.showMessageDialog(null,"Please re-run the program");
-    System.exit(0);
-}
+    }
+    catch (SQLException | ClassNotFoundException e)
+    {
+        if (DEBUG)
+            e.printStackTrace();
+        JOptionPane.showMessageDialog(null,"Please re-run the program");
+        System.exit(0);
+    }
     }
     /**
      * @param args the command line arguments

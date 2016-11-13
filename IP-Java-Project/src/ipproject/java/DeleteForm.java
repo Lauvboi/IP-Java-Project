@@ -24,8 +24,26 @@ public class DeleteForm extends javax.swing.JFrame {
      */
     public DeleteForm() {
         initComponents();
+        try
+        {
+            Class.forName("java.sql.Driver");
+            c = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
+            s = c.createStatement();
+        }
+        catch (ClassNotFoundException | SQLException e)
+        {
+            if (DEBUG)
+                e.printStackTrace();
+            else
+                JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
+        }
         loadItems();
+
     }
+    
+    Connection c;
+    Statement s;
+    ResultSet rs;
     
     private final boolean DEBUG = false;
 
@@ -41,8 +59,9 @@ public class DeleteForm extends javax.swing.JFrame {
 
         deleteButton = new javax.swing.JButton();
         refreshButton = new javax.swing.JButton();
-        games = new javax.swing.JComboBox<>();
         backToMain = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        gamesTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,62 +86,68 @@ public class DeleteForm extends javax.swing.JFrame {
             }
         });
 
+        gamesTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Sr. No.", "Name", "Stock", "Price"
+            }
+        ));
+        jScrollPane1.setViewportView(gamesTable);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(refreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(games, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(refreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(backToMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(backToMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(games, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(deleteButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(refreshButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(backToMain)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
-
-        games.setEditable(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        games.removeAllItems();
+        Utils.clearTable(gamesTable);
         loadItems();
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-       
+        DefaultTableModel gamesTableModel = (DefaultTableModel) gamesTable.getModel();
         try
         {
-            int i = games.getSelectedIndex();
-            String item = games.getSelectedItem().toString().split(" ")[0];
-            Class.forName("java.sql.Driver");
-            Connection connection = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
-            Statement statement = connection.createStatement();
-            int n = statement.executeUpdate("delete from games where srno="+item);
-            games.removeItemAt(i);
-            statement.close();
-            connection.close();
+            int i = gamesTable.getSelectedRow();
+            String item =  gamesTable.getValueAt(i, 0).toString();
+            int n = s.executeUpdate("delete from games where srno="+item);
+            gamesTableModel.removeRow(i);
         }
-           catch (NullPointerException | ClassNotFoundException | SQLException e)
+        catch (NullPointerException | SQLException e)
         {
             if (DEBUG)
                 e.printStackTrace();
@@ -139,22 +164,21 @@ public class DeleteForm extends javax.swing.JFrame {
     
     private void loadItems()
     {
+        DefaultTableModel gamesTableModel = (DefaultTableModel) gamesTable.getModel();
+
         try
         {
-            Class.forName("java.sql.Driver");
-            Connection connection = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from games");
+            ResultSet resultSet = s.executeQuery("select * from games");
             while (resultSet.next())
             {
                 int srno = resultSet.getInt("srno");
                 String name = resultSet.getString("name");
                 int stock = resultSet.getInt("stock");
                 int price = resultSet.getInt("price");
-                games.addItem(srno+" "+name+" "+stock+" "+price);
+                gamesTableModel.addRow(new Object[] {srno,name,stock,price});
             }
         }
-           catch (ClassNotFoundException | SQLException e)
+        catch (SQLException e)
         {
             if (DEBUG)
                 e.printStackTrace();
@@ -201,7 +225,8 @@ public class DeleteForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToMain;
     private javax.swing.JButton deleteButton;
-    private javax.swing.JComboBox<String> games;
+    private javax.swing.JTable gamesTable;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton refreshButton;
     // End of variables declaration//GEN-END:variables
 }
