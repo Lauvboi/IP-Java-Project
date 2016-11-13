@@ -35,6 +35,7 @@ public class LoggedInForm extends javax.swing.JFrame {
         inputButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         buyGamesButton = new javax.swing.JButton();
+        logoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,20 +70,29 @@ public class LoggedInForm extends javax.swing.JFrame {
             }
         });
 
+        logoutButton.setText("Logout");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inputButton)
-                    .addComponent(listAllGamesButton))
-                .addGap(148, 148, 148)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(buyGamesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteButton))
-                .addGap(66, 66, 66))
+                .addContainerGap()
+                .addComponent(listAllGamesButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(inputButton)
+                .addGap(18, 18, 18)
+                .addComponent(logoutButton)
+                .addGap(27, 27, 27)
+                .addComponent(buyGamesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deleteButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -92,15 +102,14 @@ public class LoggedInForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(welcomeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(listAllGamesButton)
-                    .addComponent(buyGamesButton))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inputButton)
+                    .addComponent(logoutButton)
+                    .addComponent(buyGamesButton)
                     .addComponent(deleteButton))
-                .addGap(34, 34, 34))
+                .addGap(110, 110, 110))
         );
 
         if (!LoginForm.isUserAdmin)
@@ -130,6 +139,13 @@ public class LoggedInForm extends javax.swing.JFrame {
         new BuyGamesForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_buyGamesButtonActionPerformed
+
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        LoginForm.loggedInUser = "";
+        LoginForm.isUserAdmin = false;
+        new LoginForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_logoutButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,6 +188,7 @@ public class LoggedInForm extends javax.swing.JFrame {
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton inputButton;
     private javax.swing.JButton listAllGamesButton;
+    private javax.swing.JButton logoutButton;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }

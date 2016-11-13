@@ -30,13 +30,7 @@ import javax.swing.table.DefaultTableModel;
         String n = s;
         s = "";
         int o = (int)Math.ceil(Math.random()*5);
-        int offset = o*n.length();
-        for (int i = 0;i<n.length();i++)
-        {
-            char c = n.charAt(i);
-            c += offset;
-            s += c;            
-        }
+        s = encrypt(n,o);
         CreateAccountForm.offset = o;
         return s;
     }
