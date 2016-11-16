@@ -32,10 +32,7 @@ public class DeleteForm extends javax.swing.JFrame {
         }
         catch (ClassNotFoundException | SQLException e)
         {
-            if (DEBUG)
-                e.printStackTrace();
-            else
-                JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
+            Utils.displayError(e);
         }
         loadItems();
 
@@ -45,7 +42,6 @@ public class DeleteForm extends javax.swing.JFrame {
     Statement s;
     ResultSet rs;
     
-    private final boolean DEBUG = false;
 
 
     /**
@@ -149,10 +145,7 @@ public class DeleteForm extends javax.swing.JFrame {
         }
         catch (NullPointerException | SQLException e)
         {
-            if (DEBUG)
-                e.printStackTrace();
-            else
-                JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
+            Utils.displayError(e);
             return ;
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
@@ -180,10 +173,7 @@ public class DeleteForm extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-            if (DEBUG)
-                e.printStackTrace();
-            else
-                JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
+            Utils.displayError(e);
             return ;
         }
     }

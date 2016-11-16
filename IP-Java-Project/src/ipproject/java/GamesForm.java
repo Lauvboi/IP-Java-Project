@@ -15,8 +15,6 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import ipproject.java.Utils;
-
 /**
  *
  * @author akhil
@@ -31,8 +29,6 @@ public class GamesForm extends javax.swing.JFrame {
         loadGames();
     }
     
-    private final boolean DEBUG = false;
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -149,12 +145,9 @@ public class GamesForm extends javax.swing.JFrame {
             statement.close();
             connection.close();
         }
-           catch (ClassNotFoundException | SQLException e)
+        catch (ClassNotFoundException | SQLException e)
         {
-            if (DEBUG)
-                e.printStackTrace();
-            else
-                JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
+            Utils.displayError(e);
             return ;
         }
     }

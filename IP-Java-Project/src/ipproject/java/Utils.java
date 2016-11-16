@@ -5,6 +5,7 @@
  */
 package ipproject.java;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,10 +14,13 @@ import javax.swing.table.DefaultTableModel;
  * @author akhil
  */
  public class Utils {
-    public static String URL = "jdbc:mysql://127.0.0.1:3306/ipproject";
-    public static String USER = "akhil";
-    public static String PASSWORD = "cool stuff";
- 
+    public static final String PORT = "3306";
+    public static final String DB = "ipproject";
+    public static final String HOST = "localhost";
+    public static final String URL = "jdbc:mysql://"+HOST+":"+PORT+"/"+DB;
+    public static final String USER = "akhil";
+    public static final String PASSWORD = "cool stuff";
+    public static final boolean DEBUG = false;
     
     /**
      * 
@@ -85,6 +89,18 @@ import javax.swing.table.DefaultTableModel;
         while (tableModel.getRowCount()>0)
         {
             tableModel.removeRow(0);
+        }
+    }
+    
+    public static void displayError(Exception e)
+    {
+        if (DEBUG)
+        {
+            e.printStackTrace();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Error Occurred: "+e.getMessage());
         }
     }
 }

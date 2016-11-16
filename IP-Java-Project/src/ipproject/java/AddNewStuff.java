@@ -34,15 +34,10 @@ public class AddNewStuff extends javax.swing.JFrame {
         }
         catch (ClassNotFoundException | SQLException e)
         {
-            if (DEBUG)
-                e.printStackTrace();
-            else
-                JOptionPane.showMessageDialog(null, "Error Occurred: "+e.getMessage());
+            Utils.displayError(e);
         }
     }
     
-    private final boolean DEBUG = false;
-
     Connection c;
     Statement s;
     ResultSet rs;
@@ -179,11 +174,7 @@ public class AddNewStuff extends javax.swing.JFrame {
         }
         catch (NumberFormatException e)
         {
-            if (DEBUG)
-                e.printStackTrace();
-            else
-                JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
-            return ;
+            Utils.displayError(e);
         }
         if (srno==0)
         {
@@ -212,11 +203,7 @@ public class AddNewStuff extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-            if (DEBUG)
-                e.printStackTrace();
-            else
-                JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
-            return ;
+            Utils.displayError(e);
         }
             
     }//GEN-LAST:event_submitButtonActionPerformed
@@ -245,14 +232,11 @@ public class AddNewStuff extends javax.swing.JFrame {
             while(resultSet.next())
                 srno = resultSet.getInt("srno")+1;
             srnoInput.setText(srno+"");
-    }
-    catch (SQLException | ClassNotFoundException e)
-    {
-        if (DEBUG)
-            e.printStackTrace();
-        JOptionPane.showMessageDialog(null,"Please re-run the program");
-        System.exit(0);
-    }
+        }
+        catch (SQLException | ClassNotFoundException e)
+        {
+            Utils.displayError(e);
+        }
     }
     /**
      * @param args the command line arguments

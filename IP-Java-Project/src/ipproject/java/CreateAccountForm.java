@@ -25,8 +25,6 @@ public class CreateAccountForm extends javax.swing.JFrame {
     public CreateAccountForm() {
         initComponents();
     }
-
-        private final boolean DEBUG = false;    
         public static int offset = 0;
 
     /**
@@ -225,10 +223,7 @@ public class CreateAccountForm extends javax.swing.JFrame {
         }
         catch (ClassNotFoundException | SQLException e)
         {
-            if (DEBUG)
-                e.printStackTrace();
-            else
-                JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
+            Utils.displayError(e);
             return ;
         }
         new MainForm().setVisible(true);

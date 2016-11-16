@@ -26,7 +26,6 @@ public class LoginForm extends javax.swing.JFrame {
         initComponents();
     }
 
-    private final boolean DEBUG = false;
     public static boolean isUserAdmin = false;
     public static boolean isUserAnonymous = false;
     public static String loggedInUser = "";
@@ -226,10 +225,7 @@ public class LoginForm extends javax.swing.JFrame {
         }
         catch (ClassNotFoundException | SQLException e)
         {
-            if (DEBUG)
-                e.printStackTrace();
-            else
-                JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
+            Utils.displayError(e);
             return ;
         }
         

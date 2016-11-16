@@ -6,6 +6,12 @@ package ipproject.java;
  * and open the template in the editor.
  */
 import javax.swing.JOptionPane;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author akhil
@@ -17,8 +23,21 @@ public class LoggedInForm extends javax.swing.JFrame {
      */
     public LoggedInForm() {
         initComponents();
+        try
+        {
+            Class.forName("java.sql.Driver");
+            c = DriverManager.getConnection(Utils.URL,Utils.USER,Utils.PASSWORD);
+            s = c.createStatement();
+        }
+        catch (ClassNotFoundException | SQLException e)
+        {
+            Utils.displayError(e);
+        }
     }
     
+    
+    Connection c;
+    Statement s;
     public static boolean isAuthorized = false;
 
     /**
@@ -36,6 +55,7 @@ public class LoggedInForm extends javax.swing.JFrame {
         deleteButton = new javax.swing.JButton();
         buyGamesButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
+        deleteAccountButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,25 +100,35 @@ public class LoggedInForm extends javax.swing.JFrame {
             }
         });
 
+        deleteAccountButton.setText("Delete Account");
+        deleteAccountButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteAccountButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(welcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(listAllGamesButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(inputButton)
-                .addGap(18, 18, 18)
-                .addComponent(logoutButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(deleteAccountButton)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(listAllGamesButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(inputButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(logoutButton)))
                 .addGap(27, 27, 27)
                 .addComponent(buyGamesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(welcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,7 +142,9 @@ public class LoggedInForm extends javax.swing.JFrame {
                     .addComponent(logoutButton)
                     .addComponent(buyGamesButton)
                     .addComponent(deleteButton))
-                .addGap(110, 110, 110))
+                .addGap(43, 43, 43)
+                .addComponent(deleteAccountButton)
+                .addGap(36, 36, 36))
         );
 
         if (!LoginForm.isUserAdmin)
@@ -121,6 +153,8 @@ public class LoggedInForm extends javax.swing.JFrame {
         deleteButton.setVisible(false);
         if (LoginForm.isUserAnonymous)
         buyGamesButton.setVisible(false);
+        if (LoginForm.isUserAdmin || LoginForm.isUserAnonymous)
+        deleteAccountButton.setVisible(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -149,9 +183,28 @@ public class LoggedInForm extends javax.swing.JFrame {
         LoginForm.loggedInUser = "";
         LoginForm.isUserAdmin = false;
         LoginForm.isUserAnonymous=false;
-        new LoginForm().setVisible(true);
+        new MainForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logoutButtonActionPerformed
+
+    private void deleteAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAccountButtonActionPerformed
+        String username = LoginForm.loggedInUser;
+        String q = "delete from users where username=\""+username+"\"";
+        int n = 0;
+        try
+        {
+            n = s.executeUpdate(q);
+        }
+        catch (SQLException e)
+        {
+            Utils.displayError(e);
+        }
+        if (n==0)
+        {
+           JOptionPane.showMessageDialog(null,"Error occurred while trying to delete user!");
+        }
+        logoutButton.doClick();
+    }//GEN-LAST:event_deleteAccountButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,6 +244,7 @@ public class LoggedInForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buyGamesButton;
+    private javax.swing.JButton deleteAccountButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton inputButton;
     private javax.swing.JButton listAllGamesButton;

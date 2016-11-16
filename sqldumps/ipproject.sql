@@ -37,7 +37,7 @@ CREATE TABLE `games` (
 
 LOCK TABLES `games` WRITE;
 /*!40000 ALTER TABLE `games` DISABLE KEYS */;
-INSERT INTO `games` VALUES (1,'Fifa 17',49,3799),(2,'Far Cry 4',16,1799),(3,'GTA V',2,2499),(4,'Call Of Duty : Black Ops III',10,2799);
+INSERT INTO `games` VALUES (1,'Fifa 17',48,3799),(2,'Far Cry 4',16,1799),(3,'GTA V',2,2499),(4,'Call Of Duty : Black Ops III',10,2799);
 /*!40000 ALTER TABLE `games` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,4 +74,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-14  0:32:36
+-- Dump completed on 2016-11-16 17:03:07

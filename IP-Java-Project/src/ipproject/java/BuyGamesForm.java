@@ -32,19 +32,11 @@ public class BuyGamesForm extends javax.swing.JFrame {
         }
         catch (ClassNotFoundException | SQLException e)
         {
-            if (DEBUG)
-            {
-                e.printStackTrace();
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, "Error Occurred: "+e.getMessage());
-            }
+            Utils.displayError(e);
         }
         loadItems();
     }
 
-    private final boolean DEBUG = false;
     Connection c;
     Statement s;
     ResultSet rs;
@@ -146,12 +138,9 @@ public class BuyGamesForm extends javax.swing.JFrame {
             }
             loadItems();
         }
-           catch (NullPointerException | SQLException e)
+        catch (NullPointerException | SQLException e)
         {
-            if (DEBUG)
-                e.printStackTrace();
-            else
-                JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
+            Utils.displayError(e);
             return ;
         }
     }//GEN-LAST:event_buyButtonActionPerformed
@@ -177,12 +166,9 @@ public class BuyGamesForm extends javax.swing.JFrame {
                 gamesTableModel.addRow(new Object[] {srno,name,stock,price});
             }
         }
-           catch (SQLException e)
+        catch (SQLException e)
         {
-            if (DEBUG)
-                e.printStackTrace();
-            else
-                JOptionPane.showMessageDialog(null,"Error occurred: "+e.getMessage());
+            Utils.displayError(e);
             return ;
         }
     }
