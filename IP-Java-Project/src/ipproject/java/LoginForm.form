@@ -56,9 +56,11 @@
                       <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="exitButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="anonymousLoginButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="63" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -83,6 +85,7 @@
                   <Component id="resetFieldsButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="exitButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="anonymousLoginButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="97" max="32767" attributes="0"/>
           </Group>
@@ -142,6 +145,14 @@
       </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="showPasswordItemStateChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="anonymousLoginButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Anonymous Login"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="anonymousLoginButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

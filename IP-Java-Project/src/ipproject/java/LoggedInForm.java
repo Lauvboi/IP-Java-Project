@@ -40,7 +40,10 @@ public class LoggedInForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         welcomeLabel.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        if (!LoginForm.isUserAnonymous)
         welcomeLabel.setText("Welcome to NRK Games, "+LoginForm.loggedInUser);
+        else
+        welcomeLabel.setText("Welcome to NRK Games, Anonymous User");
 
         listAllGamesButton.setText("List of all games");
         listAllGamesButton.addActionListener(new java.awt.event.ActionListener() {
@@ -94,8 +97,8 @@ public class LoggedInForm extends javax.swing.JFrame {
                 .addComponent(deleteButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(welcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,6 +119,8 @@ public class LoggedInForm extends javax.swing.JFrame {
         inputButton.setVisible(false);
         if (!LoginForm.isUserAdmin)
         deleteButton.setVisible(false);
+        if (LoginForm.isUserAnonymous)
+        buyGamesButton.setVisible(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -143,6 +148,7 @@ public class LoggedInForm extends javax.swing.JFrame {
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         LoginForm.loggedInUser = "";
         LoginForm.isUserAdmin = false;
+        LoginForm.isUserAnonymous=false;
         new LoginForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logoutButtonActionPerformed

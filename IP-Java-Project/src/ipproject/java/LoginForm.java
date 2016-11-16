@@ -28,6 +28,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     private final boolean DEBUG = false;
     public static boolean isUserAdmin = false;
+    public static boolean isUserAnonymous = false;
     public static String loggedInUser = "";
 
     /**
@@ -48,6 +49,7 @@ public class LoginForm extends javax.swing.JFrame {
         cancelButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
         showPassword = new javax.swing.JCheckBox();
+        anonymousLoginButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,6 +92,13 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        anonymousLoginButton.setText("Anonymous Login");
+        anonymousLoginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anonymousLoginButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,8 +128,10 @@ public class LoginForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(exitButton)))
-                .addContainerGap(63, Short.MAX_VALUE))
+                        .addComponent(exitButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(anonymousLoginButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,7 +151,8 @@ public class LoginForm extends javax.swing.JFrame {
                     .addComponent(LoginButton)
                     .addComponent(resetFieldsButton)
                     .addComponent(cancelButton)
-                    .addComponent(exitButton))
+                    .addComponent(exitButton)
+                    .addComponent(anonymousLoginButton))
                 .addContainerGap(97, Short.MAX_VALUE))
         );
 
@@ -251,6 +263,12 @@ public class LoginForm extends javax.swing.JFrame {
             passwordInput.setEchoChar('*');
     }//GEN-LAST:event_showPasswordItemStateChanged
 
+    private void anonymousLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anonymousLoginButtonActionPerformed
+        isUserAnonymous = true;
+        new LoggedInForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_anonymousLoginButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -288,6 +306,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LoginButton;
+    private javax.swing.JButton anonymousLoginButton;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton exitButton;
     private javax.swing.JLabel jLabel1;
