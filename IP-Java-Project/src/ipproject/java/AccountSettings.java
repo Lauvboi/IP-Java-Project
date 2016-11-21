@@ -55,83 +55,79 @@ public class AccountSettings extends javax.swing.JFrame {
         showPassword = new javax.swing.JCheckBox();
         updatePasswordButton = new javax.swing.JButton();
         deleteAccountButton = new javax.swing.JButton();
+        goBackButton = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setForeground(new java.awt.Color(51, 255, 255));
         jLabel1.setText("Current Password");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, -1, -1));
 
+        jLabel2.setForeground(new java.awt.Color(51, 255, 255));
         jLabel2.setText("New Password (if you wanna change)");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, -1, -1));
 
+        currentPassword.setBackground(new java.awt.Color(0,0,0,0));
+        currentPassword.setForeground(new java.awt.Color(51, 255, 255));
         currentPassword.setEchoChar('*');
+        currentPassword.setOpaque(false);
+        getContentPane().add(currentPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 128, -1));
 
+        newPassword.setBackground(new java.awt.Color(0,0,0,0));
+        newPassword.setForeground(new java.awt.Color(51, 255, 255));
         newPassword.setEchoChar('*');
+        newPassword.setOpaque(false);
+        getContentPane().add(newPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 104, -1));
 
+        showPassword.setForeground(new java.awt.Color(51, 255, 255));
         showPassword.setText("Show Passwords");
         showPassword.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 showPasswordStateChanged(evt);
             }
         });
+        getContentPane().add(showPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, -1));
 
-        updatePasswordButton.setText("Update password");
+        updatePasswordButton.setBackground(new java.awt.Color(0, 0, 0));
+        updatePasswordButton.setForeground(new java.awt.Color(51, 255, 255));
+        updatePasswordButton.setText(" Update password ");
+        updatePasswordButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        updatePasswordButton.setContentAreaFilled(false);
         updatePasswordButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updatePasswordButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(updatePasswordButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 156, 31));
 
-        deleteAccountButton.setText("Delete Account");
+        deleteAccountButton.setBackground(new java.awt.Color(0, 0, 0));
+        deleteAccountButton.setForeground(new java.awt.Color(51, 255, 255));
+        deleteAccountButton.setText(" Delete Account ");
+        deleteAccountButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        deleteAccountButton.setContentAreaFilled(false);
         deleteAccountButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteAccountButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(deleteAccountButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 137, 31));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(currentPassword))
-                .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(newPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
-                        .addComponent(showPassword)
-                        .addGap(34, 34, 34))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(deleteAccountButton)
-                            .addComponent(jLabel2))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(182, 182, 182)
-                .addComponent(updatePasswordButton)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(currentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(newPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(showPassword))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updatePasswordButton)
-                    .addComponent(deleteAccountButton))
-                .addGap(71, 71, 71))
-        );
+        goBackButton.setBackground(new java.awt.Color(0, 0, 0));
+        goBackButton.setForeground(new java.awt.Color(51, 255, 255));
+        goBackButton.setText(" Go Back ");
+        goBackButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        goBackButton.setContentAreaFilled(false);
+        goBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goBackButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(goBackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 230, -1, 30));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ipproject/java/images/all-inside-screen-bg.png"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 290));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -230,6 +226,11 @@ public class AccountSettings extends javax.swing.JFrame {
         Utils.showPassword(newPassword, showPassword);
     }//GEN-LAST:event_showPasswordStateChanged
 
+    private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
+        new LoggedInForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_goBackButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -268,8 +269,10 @@ public class AccountSettings extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField currentPassword;
     private javax.swing.JButton deleteAccountButton;
+    private javax.swing.JButton goBackButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPasswordField newPassword;
     private javax.swing.JCheckBox showPassword;
     private javax.swing.JButton updatePasswordButton;

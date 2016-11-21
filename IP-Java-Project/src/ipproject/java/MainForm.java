@@ -29,67 +29,54 @@ public class MainForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         createAccountButton = new javax.swing.JButton();
         loginButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
-        jLabel1.setText("NRK Games");
-
-        createAccountButton.setText("Create Account");
+        createAccountButton.setBackground(new java.awt.Color(0, 0, 0));
+        createAccountButton.setForeground(new java.awt.Color(51, 255, 255));
+        createAccountButton.setText(" Create Account ");
+        createAccountButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        createAccountButton.setContentAreaFilled(false);
         createAccountButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createAccountButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(createAccountButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, -1, -1));
 
-        loginButton.setText("Login");
+        loginButton.setBackground(new java.awt.Color(0, 0, 0));
+        loginButton.setForeground(new java.awt.Color(51, 255, 255));
+        loginButton.setText(" Login ");
+        loginButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        loginButton.setContentAreaFilled(false);
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, -1, -1));
 
-        exitButton.setText("Exit");
+        exitButton.setBackground(new java.awt.Color(0, 0, 0));
+        exitButton.setForeground(new java.awt.Color(51, 255, 255));
+        exitButton.setText(" Exit ");
+        exitButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        exitButton.setContentAreaFilled(false);
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(createAccountButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(loginButton)
-                        .addGap(26, 26, 26)
-                        .addComponent(exitButton)))
-                .addContainerGap(46, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
-                .addGap(87, 87, 87)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(createAccountButton)
-                    .addComponent(loginButton)
-                    .addComponent(exitButton))
-                .addContainerGap(104, Short.MAX_VALUE))
-        );
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ipproject/java/images/login-screen-bg.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 280));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

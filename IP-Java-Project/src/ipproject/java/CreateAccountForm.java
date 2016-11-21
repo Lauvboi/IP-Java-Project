@@ -51,110 +51,95 @@ public class CreateAccountForm extends javax.swing.JFrame {
         resetFieldsButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
         showPassword = new javax.swing.JCheckBox();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setForeground(new java.awt.Color(51, 255, 255));
         jLabel1.setText("Username");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
 
+        jLabel2.setForeground(new java.awt.Color(51, 255, 255));
         jLabel2.setText("Password");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, -1));
 
+        jLabel3.setForeground(new java.awt.Color(51, 255, 255));
         jLabel3.setText("Please enter the details and click Submit");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 507, -1));
 
+        jLabel4.setForeground(new java.awt.Color(51, 255, 255));
         jLabel4.setText("The username and password must not be more than 20 characters long");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 507, 15));
 
-        submitButton.setText("Submit");
+        usernameInput.setBackground(new java.awt.Color(0,0,0,0));
+        usernameInput.setForeground(new java.awt.Color(51, 255, 255));
+        usernameInput.setOpaque(false);
+        getContentPane().add(usernameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 138, -1));
+
+        passwordInput.setBackground(new java.awt.Color(0,0,0,0));
+        passwordInput.setForeground(new java.awt.Color(51, 255, 255));
+        getContentPane().add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 138, -1));
+
+        submitButton.setBackground(new java.awt.Color(0, 0, 0));
+        submitButton.setForeground(new java.awt.Color(51, 255, 255));
+        submitButton.setText(" Submit ");
+        submitButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        submitButton.setContentAreaFilled(false);
         submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
-        cancelButton.setText("Cancel");
+        cancelButton.setBackground(new java.awt.Color(0, 0, 0));
+        cancelButton.setForeground(new java.awt.Color(51, 255, 255));
+        cancelButton.setText(" Cancel ");
+        cancelButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        cancelButton.setContentAreaFilled(false);
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, -1));
 
-        resetFieldsButton.setText("Reset Fields");
+        resetFieldsButton.setBackground(new java.awt.Color(0, 0, 0));
+        resetFieldsButton.setForeground(new java.awt.Color(51, 255, 255));
+        resetFieldsButton.setText(" Reset Fields ");
+        resetFieldsButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        resetFieldsButton.setContentAreaFilled(false);
         resetFieldsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetFieldsButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(resetFieldsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, -1, -1));
 
-        exitButton.setText("Exit");
+        exitButton.setBackground(new java.awt.Color(0, 0, 0));
+        exitButton.setForeground(new java.awt.Color(51, 255, 255));
+        exitButton.setText(" Exit ");
+        exitButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        exitButton.setContentAreaFilled(false);
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
 
+        showPassword.setForeground(new java.awt.Color(51, 255, 255));
         showPassword.setText("Show Password");
         showPassword.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 showPasswordItemStateChanged(evt);
             }
         });
+        getContentPane().add(showPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 37, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(showPassword))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(usernameInput)
-                            .addComponent(passwordInput, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(submitButton)
-                        .addGap(43, 43, 43)
-                        .addComponent(cancelButton)
-                        .addGap(38, 38, 38)
-                        .addComponent(resetFieldsButton)
-                        .addGap(43, 43, 43)
-                        .addComponent(exitButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(usernameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(passwordInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(showPassword)
-                .addGap(3, 3, 3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(submitButton)
-                    .addComponent(cancelButton)
-                    .addComponent(resetFieldsButton)
-                    .addComponent(exitButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addGap(22, 22, 22))
-        );
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ipproject/java/images/all-inside-screen-bg.png"))); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 280));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -281,6 +266,7 @@ public class CreateAccountForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPasswordField passwordInput;
     private javax.swing.JButton resetFieldsButton;
     private javax.swing.JCheckBox showPassword;

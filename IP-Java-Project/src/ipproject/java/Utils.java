@@ -85,6 +85,12 @@ import javax.swing.table.DefaultTableModel;
         return s;
     }
     
+    /**
+     *
+     * @param s String to be encrypted
+     * Each Character of the String is XOR'd with the length of the String
+     * @return String with each character XOR'd with length
+     */
     public static String encrypt(String s)
     {
         String n = "";

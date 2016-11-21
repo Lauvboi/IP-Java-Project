@@ -55,105 +55,105 @@ public class LoggedInForm extends javax.swing.JFrame {
         buyGamesButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
         accountSettingsButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        welcomeLabel.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        welcomeLabel.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        welcomeLabel.setForeground(new java.awt.Color(51, 255, 255));
         if (!LoginForm.isUserAnonymous)
-        welcomeLabel.setText("Welcome to NRK Games, "+LoginForm.loggedInUser);
+        {
+            welcomeLabel.setText("Welcome to NRK Games, "+LoginForm.loggedInUser);
+        }
         else
-        welcomeLabel.setText("Welcome to NRK Games, Anonymous User");
+        {
+            welcomeLabel.setText("Welcome to NRK Games, Anonymous User");
+        }
+        getContentPane().add(welcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 440, -1));
 
+        listAllGamesButton.setBackground(new java.awt.Color(0, 0, 0));
+        listAllGamesButton.setForeground(new java.awt.Color(51, 255, 255));
         listAllGamesButton.setText("List of all games");
+        listAllGamesButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        listAllGamesButton.setContentAreaFilled(false);
         listAllGamesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listAllGamesButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(listAllGamesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 146, 31));
 
+        inputButton.setBackground(new java.awt.Color(0, 0, 0));
+        inputButton.setForeground(new java.awt.Color(51, 255, 255));
         inputButton.setText("Insert new entry");
+        inputButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        inputButton.setContentAreaFilled(false);
         inputButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(inputButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 140, 31));
+        if (!LoginForm.isUserAdmin)
+        inputButton.setVisible(false);
 
+        deleteButton.setBackground(new java.awt.Color(0, 0, 0));
+        deleteButton.setForeground(new java.awt.Color(51, 255, 255));
         deleteButton.setText("Delete an entry");
+        deleteButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        deleteButton.setContentAreaFilled(false);
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(deleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 141, 31));
+        if (!LoginForm.isUserAdmin)
+        deleteButton.setVisible(false);
 
+        buyGamesButton.setBackground(new java.awt.Color(0, 0, 0));
+        buyGamesButton.setForeground(new java.awt.Color(51, 255, 255));
         buyGamesButton.setText("Buy Games");
+        buyGamesButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        buyGamesButton.setContentAreaFilled(false);
         buyGamesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buyGamesButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(buyGamesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 150, 31));
+        if (LoginForm.isUserAnonymous)
+        buyGamesButton.setVisible(false);
 
+        logoutButton.setBackground(new java.awt.Color(0, 0, 0));
+        logoutButton.setForeground(new java.awt.Color(51, 255, 255));
         logoutButton.setText("Logout");
+        logoutButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        logoutButton.setContentAreaFilled(false);
         logoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 220, 140, 31));
 
+        accountSettingsButton.setBackground(new java.awt.Color(0, 0, 0));
+        accountSettingsButton.setForeground(new java.awt.Color(51, 255, 255));
         accountSettingsButton.setText("Account Settings");
+        accountSettingsButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        accountSettingsButton.setContentAreaFilled(false);
         accountSettingsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 accountSettingsButtonActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(welcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(accountSettingsButton)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(listAllGamesButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(inputButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(logoutButton)))
-                .addGap(27, 27, 27)
-                .addComponent(buyGamesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(deleteButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(welcomeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(listAllGamesButton)
-                    .addComponent(inputButton)
-                    .addComponent(logoutButton)
-                    .addComponent(buyGamesButton)
-                    .addComponent(deleteButton))
-                .addGap(43, 43, 43)
-                .addComponent(accountSettingsButton)
-                .addGap(36, 36, 36))
-        );
-
-        if (!LoginForm.isUserAdmin)
-        inputButton.setVisible(false);
-        if (!LoginForm.isUserAdmin)
-        deleteButton.setVisible(false);
-        if (LoginForm.isUserAnonymous)
-        buyGamesButton.setVisible(false);
+        getContentPane().add(accountSettingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, 140, 31));
         if (LoginForm.isUserAdmin || LoginForm.isUserAnonymous)
         accountSettingsButton.setVisible(false);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ipproject/java/images/all-inside-screen-bg.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 500, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -232,6 +232,7 @@ public class LoggedInForm extends javax.swing.JFrame {
     private javax.swing.JButton buyGamesButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton inputButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton listAllGamesButton;
     private javax.swing.JButton logoutButton;
     private javax.swing.JLabel welcomeLabel;
