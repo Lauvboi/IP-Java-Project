@@ -5,7 +5,6 @@ package ipproject.java;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import javax.swing.JOptionPane;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -55,7 +54,7 @@ public class LoggedInForm extends javax.swing.JFrame {
         deleteButton = new javax.swing.JButton();
         buyGamesButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
-        deleteAccountButton = new javax.swing.JButton();
+        accountSettingsButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,10 +99,10 @@ public class LoggedInForm extends javax.swing.JFrame {
             }
         });
 
-        deleteAccountButton.setText("Delete Account");
-        deleteAccountButton.addActionListener(new java.awt.event.ActionListener() {
+        accountSettingsButton.setText("Account Settings");
+        accountSettingsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteAccountButtonActionPerformed(evt);
+                accountSettingsButtonActionPerformed(evt);
             }
         });
 
@@ -117,7 +116,7 @@ public class LoggedInForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(deleteAccountButton)
+                    .addComponent(accountSettingsButton)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(listAllGamesButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -143,7 +142,7 @@ public class LoggedInForm extends javax.swing.JFrame {
                     .addComponent(buyGamesButton)
                     .addComponent(deleteButton))
                 .addGap(43, 43, 43)
-                .addComponent(deleteAccountButton)
+                .addComponent(accountSettingsButton)
                 .addGap(36, 36, 36))
         );
 
@@ -154,7 +153,7 @@ public class LoggedInForm extends javax.swing.JFrame {
         if (LoginForm.isUserAnonymous)
         buyGamesButton.setVisible(false);
         if (LoginForm.isUserAdmin || LoginForm.isUserAnonymous)
-        deleteAccountButton.setVisible(false);
+        accountSettingsButton.setVisible(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -187,24 +186,10 @@ public class LoggedInForm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_logoutButtonActionPerformed
 
-    private void deleteAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAccountButtonActionPerformed
-        String username = LoginForm.loggedInUser;
-        String q = "delete from users where username=\""+username+"\"";
-        int n = 0;
-        try
-        {
-            n = s.executeUpdate(q);
-        }
-        catch (SQLException e)
-        {
-            Utils.displayError(e);
-        }
-        if (n==0)
-        {
-           JOptionPane.showMessageDialog(null,"Error occurred while trying to delete user!");
-        }
-        logoutButton.doClick();
-    }//GEN-LAST:event_deleteAccountButtonActionPerformed
+    private void accountSettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountSettingsButtonActionPerformed
+        new AccountSettings().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_accountSettingsButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,8 +228,8 @@ public class LoggedInForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton accountSettingsButton;
     private javax.swing.JButton buyGamesButton;
-    private javax.swing.JButton deleteAccountButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton inputButton;
     private javax.swing.JButton listAllGamesButton;

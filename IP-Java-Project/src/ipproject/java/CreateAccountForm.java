@@ -25,8 +25,12 @@ public class CreateAccountForm extends javax.swing.JFrame {
     public CreateAccountForm() {
         initComponents();
     }
-        public static int offset = 0;
 
+    /** 
+     * @deprecated 
+     */
+    public static int offset = 0;
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -216,7 +220,7 @@ public class CreateAccountForm extends javax.swing.JFrame {
                 return ;
             }
             password=Utils.encrypt(password);
-            int n = s.executeUpdate("insert into users values(\""+username+"\",\""+password+"\","+offset+")");
+            int n = s.executeUpdate("insert into users values(\""+username+"\",\""+password+"\")");
             rs.close();
             s.close();
             c.close();
@@ -231,10 +235,7 @@ public class CreateAccountForm extends javax.swing.JFrame {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void showPasswordItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_showPasswordItemStateChanged
-        if (showPassword.isSelected())
-            passwordInput.setEchoChar('\u0000');
-        else
-            passwordInput.setEchoChar('*');
+        Utils.showPassword(passwordInput,showPassword);
     }//GEN-LAST:event_showPasswordItemStateChanged
 
     

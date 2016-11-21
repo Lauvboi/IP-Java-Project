@@ -218,6 +218,7 @@ public class AddNewStuff extends javax.swing.JFrame {
             priceInput.setText("");
             srnoInput.setText("");
             stockInput.setText("");
+            nameInput.requestFocus();
     }//GEN-LAST:event_clearButtonActionPerformed
     private void setSerialNumber()
     {

@@ -203,12 +203,11 @@ public class LoginForm extends javax.swing.JFrame {
                 }
             }
             String pw = rs.getString("password");
-            int o = rs.getInt("offset");
             if (!doesUserExist)
             {
                 JOptionPane.showMessageDialog(null,"Please enter a registered username");
             }
-            else if(pw.equals(Utils.encrypt(password, o)))
+            else if(pw.equals(Utils.encrypt(password)))
             {
                 loggedInUser = username;
                 new LoggedInForm().setVisible(true);
@@ -253,10 +252,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_resetFieldsButtonActionPerformed
 
     private void showPasswordItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_showPasswordItemStateChanged
-        if (showPassword.isSelected())
-            passwordInput.setEchoChar('\u0000');
-        else
-            passwordInput.setEchoChar('*');
+        Utils.showPassword(passwordInput,showPassword);
     }//GEN-LAST:event_showPasswordItemStateChanged
 
     private void anonymousLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anonymousLoginButtonActionPerformed

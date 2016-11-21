@@ -5,9 +5,12 @@
  */
 package ipproject.java;
 
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -15,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
  public class Utils {
     public static final String PORT = "3306";
-    public static final String DB = "ipproject";
+    public static final String DB = "nrkdb";
     public static final String HOST = "localhost";
     public static final String URL = "jdbc:mysql://"+HOST+":"+PORT+"/"+DB;
     public static final String USER = "akhil";
@@ -28,13 +31,14 @@ import javax.swing.table.DefaultTableModel;
      * @return Encrypted String
      * Based on the length an offset is chosen
      * and all chars in the String shifted by that offset
+     * @deprecated 
      */
-    public static String encrypt(String s)
+    public static String oldEncrypt(String s)
     {
         String n = s;
         s = "";
         int o = (int)Math.ceil(Math.random()*5);
-        s = encrypt(n,o);
+        s = oldEncrypt(n,o);
         CreateAccountForm.offset = o;
         return s;
     }
@@ -44,8 +48,9 @@ import javax.swing.table.DefaultTableModel;
      * @param s String to be encrypted
      * @param o offset to encrypt by
      * @return encrypted String
+     * @deprecated 
      */
-    public static String encrypt(String s, int o)
+    public static String oldEncrypt(String s, int o)
     {
         String n = s;
         s = "";
@@ -64,6 +69,7 @@ import javax.swing.table.DefaultTableModel;
      * @param s String to be decrypted
      * @param offset Integer containing value String is off original
      * @return String returned to its original value
+     * @deprecated 
      */
     public static String decrypt(String s,int offset)
     {
@@ -79,6 +85,21 @@ import javax.swing.table.DefaultTableModel;
         return s;
     }
     
+    public static String encrypt(String s)
+    {
+        String n = "";
+        int l = s.length();
+        for (int i=0;i<l;i++)
+        {
+            char c = s.charAt(i);
+            int t = (int)c;
+            t = t ^ l;
+            c = (char)(t);
+            n += c;
+        }
+        return n;
+    }
+    
     /**
      * 
      * @param table The JTable who's contents are to be cleared
@@ -92,6 +113,10 @@ import javax.swing.table.DefaultTableModel;
         }
     }
     
+    /**
+     * 
+     * @param e Exception who's StackTrace/message is to be displayed
+     */
     public static void displayError(Exception e)
     {
         if (DEBUG)
@@ -101,6 +126,18 @@ import javax.swing.table.DefaultTableModel;
         else
         {
             JOptionPane.showMessageDialog(null,"Error Occurred: "+e.getMessage());
+        }
+    }
+    
+    public static void showPassword(JPasswordField pf, JCheckBox cb)
+    {
+        if (cb.isSelected())
+        {
+            pf.setEchoChar('\u0000');
+        }
+        else
+        {
+            pf.setEchoChar('*');
         }
     }
 }

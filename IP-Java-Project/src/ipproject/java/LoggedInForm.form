@@ -30,7 +30,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="deleteAccountButton" min="-2" max="-2" attributes="0"/>
+                  <Component id="accountSettingsButton" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="listAllGamesButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -61,7 +61,7 @@
                   <Component id="deleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-              <Component id="deleteAccountButton" min="-2" max="-2" attributes="0"/>
+              <Component id="accountSettingsButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -130,15 +130,15 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="deleteAccountButton">
+    <Component class="javax.swing.JButton" name="accountSettingsButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Delete Account"/>
+        <Property name="text" type="java.lang.String" value="Account Settings"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteAccountButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="accountSettingsButtonActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="if (LoginForm.isUserAdmin || LoginForm.isUserAnonymous)&#xa;deleteAccountButton.setVisible(false);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="if (LoginForm.isUserAdmin || LoginForm.isUserAnonymous)&#xa;accountSettingsButton.setVisible(false);"/>
       </AuxValues>
     </Component>
   </SubComponents>

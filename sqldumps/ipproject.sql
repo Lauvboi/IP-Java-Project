@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
--- Host: localhost    Database: ipproject
+-- Host: localhost    Database: nrkdb
 -- ------------------------------------------------------
 -- Server version	5.7.16-0ubuntu0.16.04.1
 
@@ -37,7 +37,7 @@ CREATE TABLE `games` (
 
 LOCK TABLES `games` WRITE;
 /*!40000 ALTER TABLE `games` DISABLE KEYS */;
-INSERT INTO `games` VALUES (1,'Fifa 17',48,3799),(2,'Far Cry 4',16,1799),(3,'GTA V',2,2499),(4,'Call Of Duty : Black Ops III',10,2799);
+INSERT INTO `games` VALUES (1,'Fifa 17',48,3799),(2,'Far Cry 4',16,1799),(3,'GTA V',2,2499),(4,'Call Of Duty : Black Ops III',10,2799),(5,'Skyrim',20,2400),(6,'Bioshock Infinite',33,2700),(7,'Uncharted 3',46,2300),(8,'God Of War',78,2400),(9,'Mortal Kombat',39,2000),(10,'Red Dead Redemption',20,2000),(11,'Dark Souls',13,2500),(12,'NBA',28,3000),(13,'Metal Gear Solid',3,4000),(14,'Last Of Us',4,5700),(15,'Tomb Raider',88,2700),(16,'NFS',96,2200),(17,'Killzone',73,1800),(18,'Halflife',15,4400),(19,'Fallout 2',20,3900),(20,'Portal',7,4100);
 /*!40000 ALTER TABLE `games` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -50,8 +50,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `username` varchar(20) DEFAULT NULL,
-  `password` varchar(20) DEFAULT NULL,
-  `offset` int(11) DEFAULT NULL
+  `password` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -61,7 +60,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('akhil','myyv*}~pp',1);
+INSERT INTO `users` VALUES ('akhil','ieef*y~ll');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -74,4 +73,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-16 17:03:07
+-- Dump completed on 2016-11-21 17:58:21
