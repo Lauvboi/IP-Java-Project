@@ -144,10 +144,13 @@ public class BuyGamesForm extends javax.swing.JFrame {
             }
             loadItems();
         }
-        catch (NullPointerException | SQLException e)
+        catch (SQLException e)
         {
             Utils.displayError(e);
-            return ;
+        }
+        catch (ArrayIndexOutOfBoundsException e)
+        {
+            Utils.tellUserToChoose();
         }
     }//GEN-LAST:event_buyButtonActionPerformed
 

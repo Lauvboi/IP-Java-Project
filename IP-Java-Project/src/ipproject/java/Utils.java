@@ -135,6 +135,11 @@ import javax.swing.table.DefaultTableModel;
         }
     }
     
+    public static void tellUserToChoose()
+    {
+        JOptionPane.showMessageDialog(null,"Please choose a game!");
+    }
+
     public static void showPassword(JPasswordField pf, JCheckBox cb)
     {
         if (cb.isSelected())

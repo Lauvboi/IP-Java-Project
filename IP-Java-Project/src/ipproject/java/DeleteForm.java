@@ -84,10 +84,7 @@ public class DeleteForm extends javax.swing.JFrame {
 
         gamesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Sr. No.", "Name", "Stock", "Price"
@@ -143,10 +140,13 @@ public class DeleteForm extends javax.swing.JFrame {
             int n = s.executeUpdate("delete from games where srno="+item);
             gamesTableModel.removeRow(i);
         }
-        catch (NullPointerException | SQLException e)
+        catch (SQLException e)
         {
             Utils.displayError(e);
-            return ;
+        }
+        catch (ArrayIndexOutOfBoundsException e)
+        {
+            Utils.tellUserToChoose();
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
