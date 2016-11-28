@@ -163,7 +163,7 @@ public class AddNewStuff extends javax.swing.JFrame {
         int srno=0,stock=0,price=0;
         if (name.equals("") || sstock.equals("") || sprice.equals("") || ssrno.equals(""))
         {
-            JOptionPane.showMessageDialog(null,"Please fill up the necessary information before trying to submit =)");
+            JOptionPane.showMessageDialog(this,"Please fill up the necessary information before trying to submit =)");
             return ;
         }
         try
@@ -178,7 +178,7 @@ public class AddNewStuff extends javax.swing.JFrame {
         }
         if (srno==0)
         {
-            JOptionPane.showMessageDialog(null,"Serial Number cannot be 0!");
+            JOptionPane.showMessageDialog(this,"Serial Number cannot be 0!");
             return ;
         }
         try
@@ -190,14 +190,14 @@ public class AddNewStuff extends javax.swing.JFrame {
                 int s = rs.getInt("srno");
                 if (s==srno)
                 {
-                    JOptionPane.showMessageDialog(null,"srno "+srno+" already exists in database, please use another");
+                    JOptionPane.showMessageDialog(this,"srno "+srno+" already exists in database, please use another");
                     srnoInput.requestFocus();
                     return ;
                 }
             }
             query="insert into games values ("+srno+",\'"+name+"\',"+stock+","+price+");";
             int n = s.executeUpdate(query);
-            JOptionPane.showMessageDialog(null,"Game added successfully");
+            JOptionPane.showMessageDialog(this,"Game added successfully");
             clearButton.doClick();
             setSerialNumber();
         }

@@ -144,7 +144,7 @@ public class AccountSettings extends javax.swing.JFrame {
             p = Utils.encrypt(p);
             if (!p.equals(pw))
             {
-                JOptionPane.showMessageDialog(null,"Wrong password!");
+                JOptionPane.showMessageDialog(this,"Wrong password!");
                 return ;
             }
             
@@ -167,11 +167,11 @@ public class AccountSettings extends javax.swing.JFrame {
         }
         if (n==0)
         {
-           JOptionPane.showMessageDialog(null,"Error occurred trying to change password!");
+           JOptionPane.showMessageDialog(this,"Error occurred trying to change password!");
         }
         else
         {
-            JOptionPane.showMessageDialog(null,"Password updated successfully");
+            JOptionPane.showMessageDialog(this,"Password updated successfully");
         }
     }//GEN-LAST:event_updatePasswordButtonActionPerformed
 
@@ -187,7 +187,7 @@ public class AccountSettings extends javax.swing.JFrame {
             p = Utils.encrypt(p);
             if (!p.equals(pw))
             {
-                JOptionPane.showMessageDialog(null,"Wrong password!");
+                JOptionPane.showMessageDialog(this,"Wrong password!");
                 return ;
             }
             
@@ -208,11 +208,11 @@ public class AccountSettings extends javax.swing.JFrame {
         }
         if (n==0)
         {
-           JOptionPane.showMessageDialog(null,"Error occurred while trying to delete user!");
+           JOptionPane.showMessageDialog(this,"Error occurred while trying to delete user!");
         }
         else
         {
-            JOptionPane.showMessageDialog(null,"User deleted successfully");
+            JOptionPane.showMessageDialog(this,"User deleted successfully");
         }
         LoginForm.loggedInUser = "";
         LoginForm.isUserAdmin = false;

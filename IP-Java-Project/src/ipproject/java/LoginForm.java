@@ -153,12 +153,12 @@ public class LoginForm extends javax.swing.JFrame {
         String password = new String(passwordInput.getPassword());
         if (username.equals("") || password.equals(""))
         {
-            JOptionPane.showMessageDialog(null,"Please enter proper details");
+            JOptionPane.showMessageDialog(this,"Please enter proper details");
             return ;
         }
         if(username.length()>20 || password.length()>20)
         {
-            JOptionPane.showMessageDialog(null,"Credentials cannot be longer than 20 characters");
+            JOptionPane.showMessageDialog(this,"Credentials cannot be longer than 20 characters");
             return ;
         }
         if (username.equals("admin"))
@@ -172,7 +172,7 @@ public class LoginForm extends javax.swing.JFrame {
             }
             else
             {
-                JOptionPane.showMessageDialog(null,"Wrong password for admin!");
+                JOptionPane.showMessageDialog(this,"Wrong password for admin!");
             }
             return ;
         }
@@ -195,7 +195,7 @@ public class LoginForm extends javax.swing.JFrame {
             String pw = rs.getString("password");
             if (!doesUserExist)
             {
-                JOptionPane.showMessageDialog(null,"Please enter a registered username");
+                JOptionPane.showMessageDialog(this,"Please enter a registered username");
             }
             else if(pw.equals(Utils.encrypt(password)))
             {
@@ -205,7 +205,7 @@ public class LoginForm extends javax.swing.JFrame {
             }
             else
             {
-                JOptionPane.showMessageDialog(null,"Invalid password for user "+username);
+                JOptionPane.showMessageDialog(this,"Invalid password for user "+username);
                 passwordInput.setText("");
             }
             rs.close();

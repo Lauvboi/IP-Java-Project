@@ -131,13 +131,13 @@ import javax.swing.table.DefaultTableModel;
         }
         else
         {
-            JOptionPane.showMessageDialog(null,"Error Occurred: "+e.getMessage());
+            JOptionPane.showMessageDialog(this,"Error Occurred: "+e.getMessage());
         }
     }
     
     public static void tellUserToChoose()
     {
-        JOptionPane.showMessageDialog(null,"Please choose a game!");
+        JOptionPane.showMessageDialog(this,"Please choose a game!");
     }
 
     public static void showPassword(JPasswordField pf, JCheckBox cb)

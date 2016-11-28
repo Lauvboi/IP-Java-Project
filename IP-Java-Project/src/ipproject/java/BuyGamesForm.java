@@ -132,7 +132,7 @@ public class BuyGamesForm extends javax.swing.JFrame {
             String name = rs.getString("name");
             int stock = rs.getInt("stock");
             int price = rs.getInt("price");
-            JOptionPane.showMessageDialog(null,"Thank you for purchasing "+name+", "+LoginForm.loggedInUser+"\nAmount to be paid is Rs."+price+"/-");
+            JOptionPane.showMessageDialog(this,"Thank you for purchasing "+name+", "+LoginForm.loggedInUser+"\nAmount to be paid is Rs."+price+"/-");
             stock--;
             if (stock==0)
             {

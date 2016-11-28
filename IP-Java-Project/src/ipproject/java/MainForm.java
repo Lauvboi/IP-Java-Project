@@ -82,7 +82,7 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        int n = JOptionPane.showConfirmDialog(null,"Do you want to exit");
+        int n = JOptionPane.showConfirmDialog(this,"Do you want to exit");
         if (n==0)
             System.exit(0);
     }//GEN-LAST:event_exitButtonActionPerformed

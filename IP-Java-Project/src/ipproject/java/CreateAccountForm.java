@@ -169,18 +169,18 @@ public class CreateAccountForm extends javax.swing.JFrame {
         String password = new String(passwordInput.getPassword());
         if (username.equals("admin"))
         {
-            JOptionPane.showMessageDialog(null,"This username is reserved for administrators");
+            JOptionPane.showMessageDialog(this,"This username is reserved for administrators");
             resetFieldsButton.doClick();
             return ;
         }
         if (username.equals("") || password.equals(""))
         {
-            JOptionPane.showMessageDialog(null,"Please enter proper details");
+            JOptionPane.showMessageDialog(this,"Please enter proper details");
             return ;
         }
         if(username.length()>20 || password.length()>20)
         {
-            JOptionPane.showMessageDialog(null,"Please enter shorter details(max 20 characters)");
+            JOptionPane.showMessageDialog(this,"Please enter shorter details(max 20 characters)");
             return ;
         }
         try
@@ -201,7 +201,7 @@ public class CreateAccountForm extends javax.swing.JFrame {
             }
             if(duplicate)
             {
-                JOptionPane.showMessageDialog(null,"Username is already taken!");
+                JOptionPane.showMessageDialog(this,"Username is already taken!");
                 return ;
             }
             password=Utils.encrypt(password);
