@@ -212,7 +212,7 @@ public class CreateAccountForm extends javax.swing.JFrame {
         }
         catch (ClassNotFoundException | SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
             return ;
         }
         new MainForm().setVisible(true);

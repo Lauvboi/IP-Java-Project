@@ -32,7 +32,7 @@ public class DeleteForm extends javax.swing.JFrame {
         }
         catch (ClassNotFoundException | SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
         }
         loadItems();
 
@@ -142,11 +142,11 @@ public class DeleteForm extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
         }
         catch (ArrayIndexOutOfBoundsException e)
         {
-            Utils.tellUserToChoose();
+            Utils.tellUserToChoose(this);
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
@@ -173,7 +173,7 @@ public class DeleteForm extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
             return ;
         }
     }

@@ -6,6 +6,7 @@
 package ipproject.java;
 
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
@@ -123,7 +124,7 @@ import javax.swing.table.DefaultTableModel;
      * 
      * @param e Exception who's StackTrace/message is to be displayed
      */
-    public static void displayError(Exception e)
+    public static void displayError(Exception e,JFrame jFrame)
     {
         if (DEBUG)
         {
@@ -131,13 +132,13 @@ import javax.swing.table.DefaultTableModel;
         }
         else
         {
-            JOptionPane.showMessageDialog(this,"Error Occurred: "+e.getMessage());
+            JOptionPane.showMessageDialog(jFrame,"Error Occurred: "+e.getMessage());
         }
     }
     
-    public static void tellUserToChoose()
+    public static void tellUserToChoose(JFrame jFrame)
     {
-        JOptionPane.showMessageDialog(this,"Please choose a game!");
+        JOptionPane.showMessageDialog(jFrame,"Please choose a game!");
     }
 
     public static void showPassword(JPasswordField pf, JCheckBox cb)

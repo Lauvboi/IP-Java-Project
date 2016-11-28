@@ -147,7 +147,7 @@ public class GamesForm extends javax.swing.JFrame {
         }
         catch (ClassNotFoundException | SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
             return ;
         }
     }

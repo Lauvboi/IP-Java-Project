@@ -34,7 +34,7 @@ public class AddNewStuff extends javax.swing.JFrame {
         }
         catch (ClassNotFoundException | SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
         }
     }
     
@@ -174,7 +174,7 @@ public class AddNewStuff extends javax.swing.JFrame {
         }
         catch (NumberFormatException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
         }
         if (srno==0)
         {
@@ -203,7 +203,7 @@ public class AddNewStuff extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
         }
             
     }//GEN-LAST:event_submitButtonActionPerformed
@@ -236,7 +236,7 @@ public class AddNewStuff extends javax.swing.JFrame {
         }
         catch (SQLException | ClassNotFoundException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
         }
     }
     /**

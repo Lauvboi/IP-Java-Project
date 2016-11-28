@@ -31,7 +31,7 @@ public class AccountSettings extends javax.swing.JFrame {
         }
         catch (ClassNotFoundException | SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
         }
     }
 
@@ -151,7 +151,7 @@ public class AccountSettings extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
         }
         String p = new String(newPassword.getPassword());
         p = Utils.encrypt(p);
@@ -163,7 +163,7 @@ public class AccountSettings extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
         }
         if (n==0)
         {
@@ -194,7 +194,7 @@ public class AccountSettings extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
         }
         q = "delete from users where username=\""+username+"\"";
         int n = 0;
@@ -204,7 +204,7 @@ public class AccountSettings extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
         }
         if (n==0)
         {

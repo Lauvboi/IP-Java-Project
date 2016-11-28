@@ -32,7 +32,7 @@ public class BuyGamesForm extends javax.swing.JFrame {
         }
         catch (ClassNotFoundException | SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
         }
         loadItems();
     }
@@ -146,11 +146,11 @@ public class BuyGamesForm extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
         }
         catch (ArrayIndexOutOfBoundsException e)
         {
-            Utils.tellUserToChoose();
+            Utils.tellUserToChoose(this);
         }
     }//GEN-LAST:event_buyButtonActionPerformed
 
@@ -177,7 +177,7 @@ public class BuyGamesForm extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-            Utils.displayError(e);
+            Utils.displayError(e,this);
             return ;
         }
     }
