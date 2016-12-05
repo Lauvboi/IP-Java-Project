@@ -221,13 +221,13 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        int n = JOptionPane.showConfirmDialog(null,"Do you want to exit the program?");
+        int n = JOptionPane.showConfirmDialog(this,"Do you want to exit the program?");
         if (n==0)
             System.exit(0);
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        int n = JOptionPane.showConfirmDialog(null,"Do you want to cancel login?");
+        int n = JOptionPane.showConfirmDialog(this,"Do you want to cancel login?");
         if (n==0)
         {
             new MainForm().setVisible(true);
